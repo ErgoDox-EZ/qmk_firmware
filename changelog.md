@@ -28,3 +28,4 @@
 05-29-2019 - Fixing matrix_scan so it properly returns changed status  
 05-29-2019 - Add belgian layour for sendstring (qmk#6008)  
 06-03-2019 - Overhaul of AutoShift feature (qmk#6067)  
+06-05-2019 - Move RGB typedef's into a unified location
