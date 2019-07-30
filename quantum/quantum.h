@@ -61,10 +61,10 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-extern uint32_t default_layer_state;
+extern layer_state_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-    extern uint32_t layer_state;
+    extern layer_state_t layer_state;
 #endif
 
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
@@ -201,9 +201,9 @@ extern uint32_t default_layer_state;
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 
-extern const bool ascii_to_shift_lut[0x80];
-extern const bool ascii_to_altgr_lut[0x80];
-extern const uint8_t ascii_to_keycode_lut[0x80];
+extern const bool ascii_to_shift_lut[128];
+extern const bool ascii_to_altgr_lut[128];
+extern const uint8_t ascii_to_keycode_lut[128];
 
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
@@ -213,7 +213,7 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
-uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
+layer_state_t  update_tri_layer_state(layer_state_t  state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 
