@@ -49,7 +49,7 @@ def main(cli):
     elif OS == "Linux":
         cli.log.info("Detected {fg_cyan}Linux.")
         if shutil.which('systemctl'):
-            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+            mm_check = subprocess.run(['systemctl', 'list-unit-files'], stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10, universal_newlines=True)
             if mm_check.returncode == 0:
                 mm = True
                 for line in mm_check.stdout.split('\n'):
