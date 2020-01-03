@@ -149,6 +149,9 @@ extern layer_state_t layer_state;
     #include "dip_switch.h"
 #endif
 
+#ifdef WEBUSB_ENABLE
+#    include "webusb.h"
+#endif
 
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
