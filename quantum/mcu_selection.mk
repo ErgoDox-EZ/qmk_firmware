@@ -13,15 +13,15 @@ ifneq ($(findstring STM32F303, $(MCU)),)
 
   # Linker script to use
   # - it should exist either in <chibios>/os/common/ports/ARMCMx/compilers/GCC/ld/
-  #   or <this_dir>/ld/
+  #   or <keyboard_dir>/ld/
   MCU_LDSCRIPT ?= STM32F303xC
 
   # Startup code to use
   #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
   MCU_STARTUP ?= stm32f3xx
 
-  # Board: it should exist either in <chibios>/os/hal/boards/
-  #  or <this_dir>/boards
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
   BOARD ?= GENERIC_STM32_F303XC
 
   USE_FPU ?= yes
@@ -124,6 +124,12 @@ ifneq ($(findstring STM32F103, $(MCU)),)
   BOARD ?= GENERIC_STM32_F103
 
   USE_FPU ?= no
+  
+  # Vector table for application
+  # 0x00000000-0x00001000 area is occupied by bootloader.*/
+  # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
+  # OPT_DEFS = -DCORTEX_VTOR_INIT=0x08005000
+
 
   # Options to pass to dfu-util when flashing
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
