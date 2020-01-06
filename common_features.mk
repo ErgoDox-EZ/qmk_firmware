@@ -235,18 +235,40 @@ ifeq ($(strip $(LCD_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
+# backward compat
+ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    BACKLIGHT_DRIVER = custom
+endif
+
+VALID_BACKLIGHT_TYPES := pwm software custom
+
+BACKLIGHT_ENABLE ?= no
+BACKLIGHT_DRIVER ?= pwm
 ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    ifeq ($(filter $(BACKLIGHT_DRIVER),$(VALID_BACKLIGHT_TYPES)),)
+        $(error BACKLIGHT_DRIVER="$(BACKLIGHT_DRIVER)" is not a valid backlight type)
+    endif
+
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-
 
     COMMON_VPATH += $(QUANTUM_DIR)/backlight
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
 
-    ifeq ($(strip $(BACKLIGHT_ENABLE)), custom)
-        OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    ifeq ($(strip $(BACKLIGHT_DRIVER)), software)
+        SRC += $(QUANTUM_DIR)/backlight/backlight_soft.c
+    else
+        ifeq ($(strip $(BACKLIGHT_DRIVER)), custom)
+            OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+        endif
+
+        ifeq ($(PLATFORM),AVR)
+            SRC += $(QUANTUM_DIR)/backlight/backlight_avr.c
+        else
+            SRC += $(QUANTUM_DIR)/backlight/backlight_arm.c
+        endif
     endif
 endif
 
@@ -404,4 +426,9 @@ endif
 ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
   SRC += $(QUANTUM_DIR)/dip_switch.c
   OPT_DEFS += -DDIP_SWITCH_ENABLE
+endif
+
+ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
+    OPT_DEFS += -DDYNAMIC_MACRO_ENABLE
 endif
