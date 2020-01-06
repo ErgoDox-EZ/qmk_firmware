@@ -502,6 +502,8 @@ enum quantum_keycodes {
     MAGIC_SWAP_CTL_GUI,
     MAGIC_UNSWAP_CTL_GUI,
     MAGIC_TOGGLE_CTL_GUI,
+    MAGIC_EE_HANDS_LEFT,
+    MAGIC_EE_HANDS_RIGHT,
 
     // Dynamic Macros
     DYN_REC_START1,
@@ -510,9 +512,8 @@ enum quantum_keycodes {
     DYN_MACRO_PLAY1,
     DYN_MACRO_PLAY2,
 
-#ifdef WEBUSB_ENABLE
     WEBUSB_PAIR,
-#endif
+
     // always leave at the end
     SAFE_RANGE
 };
