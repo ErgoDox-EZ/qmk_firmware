@@ -477,6 +477,7 @@ else
       SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
     endif
   endif
+endif
 
 ifeq ($(strip $(DYNAMIC_MACRO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_dynamic_macro.c
