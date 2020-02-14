@@ -22,6 +22,7 @@
 #endif
 #if defined(PROTOCOL_CHIBIOS)
 #    include "hal.h"
+#    include "chibios_config.h"
 #endif
 
 #include "wait.h"
@@ -162,8 +163,20 @@ extern layer_state_t layer_state;
 #    include "webusb.h"
 #endif
 
+#ifdef ORYX_ENABLE
+#    include "oryx.h"
+#endif
+
 #ifdef DYNAMIC_MACRO_ENABLE
     #include "process_dynamic_macro.h"
+#endif
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+#   include "dynamic_keymap.h"
+#endif
+
+#ifdef VIA_ENABLE
+#   include "via.h"
 #endif
 
 // Function substitutions to ease GPIO manipulation
@@ -247,30 +260,6 @@ void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
 void tap_code16(uint16_t code);
 
-#ifdef BACKLIGHT_ENABLE
-void backlight_init_ports(void);
-void backlight_task(void);
-void backlight_task_internal(void);
-void backlight_on(pin_t backlight_pin);
-void backlight_off(pin_t backlight_pin);
-
-#    ifdef BACKLIGHT_BREATHING
-void breathing_task(void);
-void breathing_enable(void);
-void breathing_pulse(void);
-void breathing_disable(void);
-void breathing_self_disable(void);
-void breathing_toggle(void);
-bool is_breathing(void);
-
-void breathing_intensity_default(void);
-void breathing_period_default(void);
-void breathing_period_set(uint8_t value);
-void breathing_period_inc(void);
-void breathing_period_dec(void);
-#    endif
-#endif
-
 void     send_dword(uint32_t number);
 void     send_word(uint16_t number);
 void     send_byte(uint8_t number);
@@ -283,3 +272,6 @@ bool led_update_user(led_t led_state);
 bool led_update_kb(led_t led_state);
 
 void api_send_unicode(uint32_t unicode);
+
+bool webusb_receive_kb(uint8_t *data, uint8_t length);
+bool webusb_receive_user(uint8_t *data, uint8_t length);

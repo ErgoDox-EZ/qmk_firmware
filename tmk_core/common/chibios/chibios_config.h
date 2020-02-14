@@ -1,4 +1,4 @@
-/* Copyright 2017 Joseph Wasson
+/* Copyright 2019
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,17 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef PROCESS_STENO_H
-#define PROCESS_STENO_H
+#pragma once
 
-#include "quantum.h"
+#if defined(STM32F1XX)
+#    define USE_GPIOV1
+#endif
 
-typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
-
-bool     process_steno(uint16_t keycode, keyrecord_t *record);
-void     steno_init(void);
-void     steno_set_mode(steno_mode_t mode);
-uint8_t *steno_get_state(void);
-uint8_t *steno_get_chord(void);
-
+#if defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(STM32L1XX)
+#    define USE_I2CV1
 #endif
