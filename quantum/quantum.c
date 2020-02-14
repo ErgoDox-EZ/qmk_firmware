@@ -210,6 +210,12 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(RGB_MATRIX_ENABLE)
             process_rgb_matrix(keycode, record) &&
 #endif
+#ifdef ORYX_ENABLE
+            process_record_oryx(keycode, record) &&
+#endif
+#if defined(VIA_ENABLE)
+            process_record_via(keycode, record) &&
+#endif
             process_record_kb(keycode, record) &&
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
             process_midi(keycode, record) &&
@@ -308,9 +314,9 @@ bool process_record_quantum(keyrecord_t *record) {
                 return false;
 #endif
 #ifdef WEBUSB_ENABLE
-            case WEBUSB_PAIR:
-                webusb_state.pairing = true;
-                return false;
+        case WEBUSB_PAIR:
+            webusb_state.pairing ^= true;
+            return false;
 #endif
         }
     }
@@ -555,9 +561,7 @@ __attribute__((weak)) void bootmagic_lite(void) {
 
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
-#if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
-    wait_ms(DEBOUNCING_DELAY * 2);
-#elif defined(DEBOUNCE) && DEBOUNCE > 0
+#if defined(DEBOUNCE) && DEBOUNCE > 0
     wait_ms(DEBOUNCE * 2);
 #else
     wait_ms(30);
@@ -583,6 +587,9 @@ void matrix_init_quantum() {
     if (!eeconfig_is_enabled()) {
         eeconfig_init();
     }
+#if defined(ORYX_ENABLE) && defined(DYNAMIC_KEYMAP_ENABLE)
+    matrix_init_oryx();
+#endif
 #ifdef BACKLIGHT_ENABLE
 #    ifdef LED_MATRIX_ENABLE
     led_matrix_init();
@@ -628,12 +635,8 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
 #endif
 
-#if defined(BACKLIGHT_ENABLE)
-#    if defined(LED_MATRIX_ENABLE)
+#ifdef LED_MATRIX_ENABLE
     led_matrix_task();
-#    elif defined(BACKLIGHT_PIN) || defined(BACKLIGHT_PINS)
-    backlight_task();
-#    endif
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -774,3 +777,16 @@ __attribute__((weak)) void startup_user() {}
 __attribute__((weak)) void shutdown_user() {}
 
 //------------------------------------------------------------------------------
+
+#ifdef WEBUSB_ENABLE
+__attribute__((weak)) bool webusb_receive_user(uint8_t *data, uint8_t length) { return false; }
+__attribute__((weak)) bool webusb_receive_kb(uint8_t *data, uint8_t length) { return webusb_receive_user(data, length); }
+
+bool webusb_receive_quantum(uint8_t *data, uint8_t length) {
+#ifdef ORYX_ENABLE
+    return webusb_receive_oryx(data, length);
+#else
+    return webusb_receive_kb(data, length);
+#endif
+}
+#endif

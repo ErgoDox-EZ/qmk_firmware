@@ -81,6 +81,9 @@ void raw_hid_task(void);
 #ifdef CONSOLE_ENABLE
 void console_task(void);
 #endif
+#ifdef MIDI_ENABLE
+void midi_ep_task(void);
+#endif
 
 #ifdef WEBUSB_ENABLE
 void webusb_task(void);
@@ -218,6 +221,9 @@ int main(void) {
 #ifdef CONSOLE_ENABLE
         console_task();
 #endif
+#ifdef MIDI_ENABLE
+        midi_ep_task();
+#endif
 #ifdef VIRTSER_ENABLE
         virtser_task();
 #endif
@@ -228,8 +234,5 @@ int main(void) {
         webusb_task();
 #endif
 
-#if defined(RGBLIGHT_ANIMATIONS) && defined(RGBLIGHT_ENABLE)
-        rgblight_task();
-#endif
     }
 }

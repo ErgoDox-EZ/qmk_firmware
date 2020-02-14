@@ -20,7 +20,7 @@
 #include "eeprom_driver.h"
 #include "eeprom_transient.h"
 
-static uint8_t transientBuffer[TRANSIENT_EEPROM_SIZE] = {0};
+__attribute__((aligned(4))) static uint8_t transientBuffer[TRANSIENT_EEPROM_SIZE] = {0};
 
 size_t clamp_length(intptr_t offset, size_t len) {
     if (offset + len > TRANSIENT_EEPROM_SIZE) {
