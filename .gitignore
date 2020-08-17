@@ -24,6 +24,7 @@ quantum/version.h
 .idea/
 CMakeLists.txt
 cmake-build-debug
+.clang_complete
 doxygen/
 .DS_Store
 /util/wsl_downloaded
@@ -42,7 +43,6 @@ doxygen/
 *.iml
 .browse.VC.db*
 *.stackdump
-util/Win_Check_Output.txt
 # Let these ones be user specific, since we have so many different configurations
 .vscode/c_cpp_properties.json
 .vscode/launch.json
@@ -57,8 +57,6 @@ util/Win_Check_Output.txt
 *.jpg
 *.gif
 
-# Do not ignore MiniDox left/right hand eeprom files
-
 # things travis sees
 secrets.tar
 id_rsa_*
@@ -66,3 +64,9 @@ id_rsa_*
 
 # python things
 __pycache__
+
+# prerequisites for updating ChibiOS
+/util/fmpp*
+
+# Allow to exist but don't include it in the repo
+user_song_list.h

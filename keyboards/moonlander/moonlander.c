@@ -25,6 +25,19 @@ keyboard_config_t keyboard_config;
 bool mcp23018_leds[3] = {0, 0, 0};
 bool is_launching = false;
 
+#ifdef DYNAMIC_MACRO_ENABLE
+static bool is_dynamic_recording = false;
+
+void dynamic_macro_record_start_user(void) {
+    is_dynamic_recording = true;
+}
+
+void dynamic_macro_record_end_user(int8_t direction) {
+    is_dynamic_recording = false;
+    ML_LED_3(false);
+}
+#endif
+
 void moonlander_led_task(void) {
     if (is_launching) {
         ML_LED_1(false);
@@ -61,6 +74,14 @@ void moonlander_led_task(void) {
         is_launching = false;
         layer_state_set_kb(layer_state);
     }
+#ifdef DYNAMIC_MACRO_ENABLE
+    else if (is_dynamic_recording) {
+        ML_LED_3(true);
+        wait_ms(100);
+        ML_LED_3(false);
+        wait_ms(155);
+    }
+#endif
 #ifdef WEBUSB_ENABLE
     else if (webusb_state.pairing == true) {
         static uint8_t led_mask;
@@ -107,6 +128,7 @@ void moonlander_led_task(void) {
         wait_ms(150);
     }
 #endif
+
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
@@ -365,6 +387,11 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{6,5}, {5,5}, {4,5}, {3,5}, {2,5}, {1,5},{0,5}},
 };
 // clang-format on
+
+void keyboard_post_init_kb(void) {
+    rgb_matrix_enable_noeeprom();
+    keyboard_post_init_user();
+}
 #endif
 
 #if defined(AUDIO_ENABLE) && defined(MUSIC_MAP)
@@ -419,4 +446,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
     }
     return process_record_user(keycode, record);
+}
+
+void matrix_init_kb(void) {
+    keyboard_config.raw = eeconfig_read_kb();
+
+#ifdef RGB_MATRIX_ENABLE
+    if (keyboard_config.rgb_matrix_enable) {
+        rgb_matrix_set_flags(LED_FLAG_ALL);
+    } else {
+        rgb_matrix_set_flags(LED_FLAG_NONE);
+    }
+#endif
+}
+
+void eeconfig_init_kb(void) {  // EEPROM is getting reset!
+    keyboard_config.raw = 0;
+    keyboard_config.rgb_matrix_enable = true;
+    eeconfig_update_kb(keyboard_config.raw);
+    eeconfig_init_user();
 }
