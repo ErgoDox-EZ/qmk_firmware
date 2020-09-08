@@ -168,6 +168,17 @@ void rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case ST_MACRO_1:  //macros keepass usw.
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_B)));
+
+    }
+    break;
+    case ST_MACRO_2:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LALT(SS_LCTL(SS_TAP(X_K))));
+
+    }
     case RGB_SLD:
       if (record->event.pressed) {
         rgblight_mode(1);
