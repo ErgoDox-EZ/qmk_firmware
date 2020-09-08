@@ -6,14 +6,6 @@
 #include "eeprom.h"
 #include "keymap_german.h"
 
-#define KC_PC_UNDO LCTL(KC_Z)
-#define KC_PC_CUT LCTL(KC_X)
-#define KC_PC_COPY LCTL(KC_C)
-#define KC_PC_PASTE LCTL(KC_V)
-#define NO_PIPE_ALT KC_GRAVE
-#define NO_BSLS_ALT KC_EQUAL
-#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
-
 enum planck_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
   HSV_17_255_211,
@@ -46,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_planck_grid(_______,KC_F1      ,KC_F2         ,KC_F3      ,KC_F4      ,KC_F5          ,KC_F6                 ,KC_F7     ,KC_F8    ,KC_F9      ,KC_F10 ,_______,
                                 _______,ST_MACRO_0 ,KC_CALCULATOR ,ST_MACRO_1 ,LGUI(KC_M) ,LGUI(KC_L)     ,LALT(LCTL(KC_DELETE)) ,XXXXXXX   ,XXXXXXX  ,KC_F11     ,KC_F12 ,_______,
-                                _______,ST_MACRO_2 ,TT(4)         ,TO(6)      ,KC_INSERT  ,KC_APPLICATION ,XXXXXXX               ,KC_PAUSE  ,_______  ,_______    ,_______,_______,
+                                _______,ST_MACRO_2 ,TT(4)         ,_______    ,KC_INSERT  ,KC_APPLICATION ,XXXXXXX               ,KC_PAUSE  ,_______  ,_______    ,_______,_______,
                                 _______,_______    ,_______       ,_______    ,_______    ,_______        ,XXXXXXX               ,_______   ,KC_END   ,KC_PGDOWN  ,KC_PGUP,KC_HOME),
 
   [_RAISE] = LAYOUT_planck_grid(_______,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_7   ,KC_8   ,KC_9   ,KC_0   ,_______,
@@ -64,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                   _______     ,_______,_______,_______,_______,KC_NUMLOCK ,KC_KP_1,KC_KP_2,KC_KP_3,KC_COMMA       ,KC_DOT ,_______,
                                   _______     ,_______,_______,TO(1)   ,TO(0) ,_______    ,XXXXXXX,KC_KP_0,_______,_______        ,_______,_______),
 
-  [_LT] = LAYOUT_planck_grid( _______,DE_AT   ,_______,DE_EURO,_______,_______,_______,DE_UE        ,_______,DE_OE  ,KC_PSCREEN ,KC_DELETE,
+  [_LT] = LAYOUT_planck_grid(     _______,DE_AT   ,_______,DE_EURO,_______,_______,_______,DE_UE        ,_______,DE_OE  ,KC_PSCREEN ,KC_DELETE,
                                   _______,DE_AE   ,DE_SS  ,_______,_______,_______,_______,_______      ,_______,_______,_______    ,_______,
                                   _______,DE_PIPE ,_______,_______,_______,_______,_______,KC_AUDIO_MUTE,_______,_______,_______    ,_______,
                                   _______,_______ ,_______,_______,_______,_______,XXXXXXX,_______      ,_______,_______,_______    ,_______),
