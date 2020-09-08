@@ -30,9 +30,9 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _LAYER4,
-  _LAYER5,
-  _LAYER6,
+  _NUMPAD,
+  _LT,
+  _GAMING,
 };
 
 #define LOWER MO(_LOWER)
@@ -59,17 +59,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______ ,_______,MU_ON  ,MU_OFF           ,MU_TOG ,_______    ,_______,RGB_MOD    ,RGB_HUI,RGB_HUD,HSV_0_0_255    ,_______,
                                 _______ ,_______,_______,_______          ,_______,_______    ,XXXXXXX,_______    ,_______,_______,_______        ,_______),
 
-  [_LAYER4] = LAYOUT_planck_grid( _______     ,_______,_______,_______,_______,KC_KP_PLUS ,KC_KP_7,KC_KP_8,KC_KP_9,KC_KP_ASTERISK ,_______,_______,
+  [_NUMPAD] = LAYOUT_planck_grid( _______     ,_______,_______,_______,_______,KC_KP_PLUS ,KC_KP_7,KC_KP_8,KC_KP_9,KC_KP_ASTERISK ,_______,_______,
                                   KC_CAPSLOCK ,_______,_______,_______,_______,KC_KP_MINUS,KC_KP_4,KC_KP_5,KC_KP_6,KC_KP_SLASH    ,DE_EQL ,_______,
                                   _______     ,_______,_______,_______,_______,KC_NUMLOCK ,KC_KP_1,KC_KP_2,KC_KP_3,KC_COMMA       ,KC_DOT ,_______,
                                   _______     ,_______,_______,TO(1)   ,TO(0) ,_______    ,XXXXXXX,KC_KP_0,_______,_______        ,_______,_______),
 
-  [_LAYER5] = LAYOUT_planck_grid( _______,DE_AT   ,_______,DE_EURO,_______,_______,_______,DE_UE        ,_______,DE_OE  ,KC_PSCREEN ,KC_DELETE,
+  [_LT] = LAYOUT_planck_grid( _______,DE_AT   ,_______,DE_EURO,_______,_______,_______,DE_UE        ,_______,DE_OE  ,KC_PSCREEN ,KC_DELETE,
                                   _______,DE_AE   ,DE_SS  ,_______,_______,_______,_______,_______      ,_______,_______,_______    ,_______,
                                   _______,DE_PIPE ,_______,_______,_______,_______,_______,KC_AUDIO_MUTE,_______,_______,_______    ,_______,
                                   _______,_______ ,_______,_______,_______,_______,XXXXXXX,_______      ,_______,_______,_______    ,_______),
 
-  [_LAYER6] = LAYOUT_planck_grid( _______,_______,_______,_______,_______ ,_______,_______,_______  ,_______,_______,_______,TO(0),
+  [_GAMING] = LAYOUT_planck_grid( _______,_______,_______,_______,_______ ,_______,_______,_______  ,_______,_______,_______,TO(0),
                                   _______,_______,_______,_______,_______ ,_______,_______,_______  ,_______,_______,_______,_______,
                                   _______,_______,_______,_______,_______ ,_______,_______,_______  ,_______,KC_PGUP,KC_UP  ,KC_PGDOWN,
                                   _______,XXXXXXX,_______,XXXXXXX,KC_SPACE,_______,XXXXXXX,KC_SPACE ,XXXXXXX,KC_LEFT,KC_DOWN,_______),
