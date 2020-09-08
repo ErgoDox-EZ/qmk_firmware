@@ -47,8 +47,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                 _______,_______,_______,_______,_______,_______,XXXXXXX,_______,_______,_______,_______,_______),
 
   [_ADJUST] = LAYOUT_planck_grid(_______,_______,_______,MAGIC_TOGGLE_NKRO,_______,WEBUSB_PAIR,_______,LED_LEVEL  ,RGB_SLD,RGB_SPI,RGB_SPD        ,_______,
-                                TO(6)   ,_______,AU_ON  ,AU_OFF           ,AU_TOG ,_______    ,_______,RGB_TOG    ,RGB_VAI,RGB_VAD,HSV_17_255_211 ,RESET,
-                                _______ ,_______,MU_ON  ,MU_OFF           ,MU_TOG ,_______    ,_______,RGB_MOD    ,RGB_HUI,RGB_HUD,HSV_0_0_255    ,_______,
+                                TO(6)   ,_______,_______,_______          ,_______,_______    ,_______,RGB_TOG    ,RGB_VAI,RGB_VAD,HSV_17_255_211 ,RESET,
+                                _______ ,_______,_______,_______          ,_______,_______    ,_______,RGB_MOD    ,RGB_HUI,RGB_HUD,HSV_0_0_255    ,_______,
                                 _______ ,_______,_______,_______          ,_______,_______    ,XXXXXXX,_______    ,_______,_______,_______        ,_______),
 
   [_NUMPAD] = LAYOUT_planck_grid( _______     ,_______,_______,_______,_______,KC_KP_PLUS ,KC_KP_7,KC_KP_8,KC_KP_9,KC_KP_ASTERISK ,_______,_______,
