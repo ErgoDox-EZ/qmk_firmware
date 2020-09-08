@@ -1,11 +1,5 @@
 #pragma once
 
-#ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(PLANCK_SOUND)
-#endif
-
-#define MIDI_BASIC
-
 #define ENCODER_RESOLUTION 4
 
 /*
@@ -14,4 +8,4 @@
 */
 #define ORYX_CONFIGURATOR
 #define FIRMWARE_VERSION u8"Ppzmm/554eY"
-#define RGB_MATRIX_STARTUP_SPD 60
+#define RGB_MATRIX_STARTUP_SPD 10
