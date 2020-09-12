@@ -101,6 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 
@@ -170,7 +171,7 @@ void rgb_matrix_indicators_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case ST_MACRO_0: //keepas strg +a
+    case ST_MACRO_0: //keepass strg +a
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_LCTL(SS_TAP(X_A))));
     }

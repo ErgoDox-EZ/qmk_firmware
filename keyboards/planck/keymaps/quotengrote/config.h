@@ -8,7 +8,7 @@
 */
 #define ORYX_CONFIGURATOR //auch für led
 #define FIRMWARE_VERSION u8"Ppzmm/554eY"
-#define RGB_MATRIX_STARTUP_SPD 10
+#define RGB_MATRIX_STARTUP_SPD 1
 
 //tap dance
 #define TAPPING_TERM 140 //in milliseconds
