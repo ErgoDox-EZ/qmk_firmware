@@ -11,4 +11,4 @@
 #define RGB_MATRIX_STARTUP_SPD 10
 
 //tap dance
-#define TAPPING_TERM 200 //in milliseconds
+#define TAPPING_TERM 160 //in milliseconds
