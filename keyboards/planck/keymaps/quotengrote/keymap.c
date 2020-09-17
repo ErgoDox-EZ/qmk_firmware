@@ -50,13 +50,16 @@ enum {
 
 //Funktion für TT-ACTION_TAP_DANCE_FN €
 void F_TDA_E (qk_tap_dance_state_t *state, void *user_data) {
-	if (state->count <= 2) {
-		register_code(KC_X);
-		unregister_code(KC_X);
-	}
-	else {
-		register_code16(DE_EURO);
-		unregister_code16(DE_EURO);	}
+    switch(state->count){
+        case 1:
+            register_code(KC_E);
+            unregister_code(KC_E);
+            break;
+        case 4:
+            register_code16(DE_EURO);
+            unregister_code16(DE_EURO);
+            break;
+          }
 }
 //Funktion für TT-ACTION_TAP_DANCE_FN @
 //Funktion für TT-ACTION_TAP_DANCE_FN |
@@ -72,8 +75,8 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
     [TD_OE] = ACTION_TAP_DANCE_DOUBLE(KC_O, DE_ODIA),
     [TD_SZ] = ACTION_TAP_DANCE_DOUBLE(KC_S, DE_SS),
     [TD_CT] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APPLICATION),
+  //  [TDA_E] = ACTION_TAP_DANCE_DOUBLE(KC_B, DE_EURO)
     [TDA_E] = ACTION_TAP_DANCE_FN(F_TDA_E)
-
 };
 
 
@@ -82,7 +85,7 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,KC_Q       ,KC_W           ,TDA_E            ,KC_R       ,KC_T         ,DE_Z                 ,TD(TD_UE)      ,KC_I       ,TD(TD_OE)      ,KC_P             ,KC_BSPACE,
+  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,KC_Q       ,KC_W           ,TD(TDA_E)         ,KC_R       ,KC_T         ,DE_Z                 ,TD(TD_UE)      ,KC_I       ,TD(TD_OE)      ,KC_P             ,KC_BSPACE,
                                  KC_TAB     ,TD(TD_AE)  ,TD(TD_SZ)      ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
                                  KC_LSHIFT  ,DE_Y       ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
                                  KC_LCTRL   ,TD(TD_CT)  ,KC_LALT        ,LT(5,XXXXXXX)    ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
