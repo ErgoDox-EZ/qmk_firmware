@@ -38,45 +38,125 @@ enum planck_layers {
 #define DE_EURO ALGR(DE_E) // € - german.h
 
 enum {
-    TD_AE, //TT ä
-    TD_UE, //TT ü
-    TD_OE, //TT ö
-    TD_SZ, //TT ß
-    TD_CT, //TT Win + Context
+    TDA_AE, //TT-ACTION_TAP_DANCE_FN ä
+    TDA_UE, //TT-ACTION_TAP_DANCE_FN ü
+    TDA_OE, //TT-ACTION_TAP_DANCE_FN ö
+    TDA_SZ, //TT-ACTION_TAP_DANCE_FN ß
+    TD_CT, //TT-ACTION_TAP_DANCE_DOUBLE Win + Context
     TDA_E, //TT-ACTION_TAP_DANCE_FN €
-    TDA_A, //TT-ACTION_TAP_DANCE_FN @
+    TDA_Q, //TT-ACTION_TAP_DANCE_FN @
     TDA_P //TT-ACTION_TAP_DANCE_FN |
 };
 
-//Funktion für TT-ACTION_TAP_DANCE_FN €
+//Funktion für TT-ACTION_TAP_DANCE_FN E+€
 void F_TDA_E (qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count){
         case 1:
             register_code(KC_E);
             unregister_code(KC_E);
             break;
-        case 4:
+        case 3:
             register_code16(DE_EURO);
             unregister_code16(DE_EURO);
             break;
           }
 }
-//Funktion für TT-ACTION_TAP_DANCE_FN @
-//Funktion für TT-ACTION_TAP_DANCE_FN |
+//Funktion für TT-ACTION_TAP_DANCE_FN Q+@
+void F_TDA_Q (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(KC_Q);
+            unregister_code(KC_Q);
+            break;
+        case 3:
+            register_code16(DE_AT);
+            unregister_code16(DE_AT);
+            break;
+          }
+}
+//Funktion für TT-ACTION_TAP_DANCE_FN Y+|
+void F_TDA_P (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(DE_Y);
+            unregister_code(DE_Y);
+            break;
+        case 3:
+            register_code16(DE_PIPE);
+            unregister_code16(DE_PIPE);
+            break;
+          }
+}
 
-
-
-
+//Funktion für TT-ACTION_TAP_DANCE_FN A+Ä
+void F_TDA_AE (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(KC_A);
+            unregister_code(KC_A);
+            break;
+        case 3:
+            register_code16(DE_ADIA);
+            unregister_code16(DE_ADIA);
+            break;
+          }
+}
+//Funktion für TT-ACTION_TAP_DANCE_FN U+Ü
+void F_TDA_UE (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(KC_U);
+            unregister_code(KC_U);
+            break;
+        case 3:
+            register_code16(DE_UDIA);
+            unregister_code16(DE_UDIA);
+            break;
+          }
+}
+//Funktion für TT-ACTION_TAP_DANCE_FN O+Ö
+void F_TDA_OE (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(KC_O);
+            unregister_code(KC_O);
+            break;
+        case 3:
+            register_code16(DE_ODIA);
+            unregister_code16(DE_ODIA);
+            break;
+          }
+}
+//Funktion für TT-ACTION_TAP_DANCE_FN S+ß
+void F_TDA_SZ (qk_tap_dance_state_t *state, void *user_data) {
+    switch(state->count){
+        case 1:
+            register_code(KC_S);
+            unregister_code(KC_S);
+            break;
+        case 2:
+            register_code(KC_S);
+            unregister_code(KC_S);
+            register_code(KC_S);
+            unregister_code(KC_S);
+            break;
+        case 3:
+            register_code16(DE_SS);
+            unregister_code16(DE_SS);
+            break;
+          }
+}
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
-    [TD_AE] = ACTION_TAP_DANCE_DOUBLE(KC_A, DE_ADIA),
-    [TD_UE] = ACTION_TAP_DANCE_DOUBLE(KC_U, DE_UDIA),
-    [TD_OE] = ACTION_TAP_DANCE_DOUBLE(KC_O, DE_ODIA),
-    [TD_SZ] = ACTION_TAP_DANCE_DOUBLE(KC_S, DE_SS),
     [TD_CT] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APPLICATION),
-  //  [TDA_E] = ACTION_TAP_DANCE_DOUBLE(KC_B, DE_EURO)
-    [TDA_E] = ACTION_TAP_DANCE_FN(F_TDA_E)
+    [TDA_E] = ACTION_TAP_DANCE_FN(F_TDA_E),
+    [TDA_Q] = ACTION_TAP_DANCE_FN(F_TDA_Q),
+    [TDA_P] = ACTION_TAP_DANCE_FN(F_TDA_P),
+    [TDA_AE] = ACTION_TAP_DANCE_FN(F_TDA_AE),
+    [TDA_UE] = ACTION_TAP_DANCE_FN(F_TDA_UE),
+    [TDA_OE] = ACTION_TAP_DANCE_FN(F_TDA_OE),
+    [TDA_SZ] = ACTION_TAP_DANCE_FN(F_TDA_SZ)
 };
 
 
@@ -85,9 +165,9 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,KC_Q       ,KC_W           ,TD(TDA_E)         ,KC_R       ,KC_T         ,DE_Z                 ,TD(TD_UE)      ,KC_I       ,TD(TD_OE)      ,KC_P             ,KC_BSPACE,
-                                 KC_TAB     ,TD(TD_AE)  ,TD(TD_SZ)      ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
-                                 KC_LSHIFT  ,DE_Y       ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
+  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_Q)  ,KC_W           ,TD(TDA_E)        ,KC_R       ,KC_T         ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
+                                 KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
+                                 KC_LSHIFT  ,TD(TDA_P)  ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
                                  KC_LCTRL   ,TD(TD_CT)  ,KC_LALT        ,LT(5,XXXXXXX)    ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5        ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
