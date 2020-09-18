@@ -42,7 +42,6 @@ enum {
     TDA_UE, //TT-ACTION_TAP_DANCE_FN ü
     TDA_OE, //TT-ACTION_TAP_DANCE_FN ö
     TDA_SZ, //TT-ACTION_TAP_DANCE_FN ß
-    TD_CT, //TT-ACTION_TAP_DANCE_DOUBLE Win + Context
     TDA_E, //TT-ACTION_TAP_DANCE_FN €
     TDA_Q, //TT-ACTION_TAP_DANCE_FN @
     TDA_P, //TT-ACTION_TAP_DANCE_FN |
@@ -175,7 +174,6 @@ void F_TDA_SZ (qk_tap_dance_state_t *state, void *user_data) {
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
-    [TD_CT] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, KC_APPLICATION),
     [TD_H] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
     [TD_E] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
     [TDA_E] = ACTION_TAP_DANCE_FN(F_TDA_E),
@@ -196,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_Q)  ,KC_W           ,TD(TDA_E)        ,KC_R       ,KC_T         ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
                                  KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
                                  KC_LSHIFT  ,TD(TDA_P)  ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
-                                 KC_LCTRL   ,TD(TD_CT)  ,KC_LALT        ,XXXXXXX          ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
+                                 KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,KC_APPLICATION   ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5        ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
                                  _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX      ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
