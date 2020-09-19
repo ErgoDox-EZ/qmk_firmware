@@ -42,15 +42,15 @@ enum {
     TDA_UE, //TT-ACTION_TAP_DANCE_FN ü
     TDA_OE, //TT-ACTION_TAP_DANCE_FN ö
     TDA_SZ, //TT-ACTION_TAP_DANCE_FN ß
-    TDA_E, //TT-ACTION_TAP_DANCE_FN €
-    TDA_Q, //TT-ACTION_TAP_DANCE_FN @
-    TDA_P, //TT-ACTION_TAP_DANCE_FN |
-    TD_H, //TT-ACTION_TAP_DANCE_DOUBLE "Home"
-    TD_E //TT-ACTION_TAP_DANCE_DOUBLE "End"
+    TDA_EURO, //TT-ACTION_TAP_DANCE_FN €
+    TDA_AT, //TT-ACTION_TAP_DANCE_FN @
+    TD_PIPE, //TT-ACTION_TAP_DANCE_FN |
+    TD_HOME, //TT-ACTION_TAP_DANCE_DOUBLE "Home"
+    TD_END //TT-ACTION_TAP_DANCE_DOUBLE "End"
 };
 
 //Funktion für TT-ACTION_TAP_DANCE_FN E+€
-void F_TDA_E (qk_tap_dance_state_t *state, void *user_data) {
+void F_TDA_EURO (qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count){
         case 1:
             register_code(KC_E);
@@ -69,7 +69,7 @@ void F_TDA_E (qk_tap_dance_state_t *state, void *user_data) {
           }
 }
 //Funktion für TT-ACTION_TAP_DANCE_FN Q+@
-void F_TDA_Q (qk_tap_dance_state_t *state, void *user_data) {
+void F_TDA_AT (qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count){
         case 1:
             register_code(KC_Q);
@@ -82,7 +82,7 @@ void F_TDA_Q (qk_tap_dance_state_t *state, void *user_data) {
           }
 }
 //Funktion für TT-ACTION_TAP_DANCE_FN Y+|
-void F_TDA_P (qk_tap_dance_state_t *state, void *user_data) {
+void F_TD_PIPE (qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count){
         case 1:
             register_code(DE_Y);
@@ -174,11 +174,11 @@ void F_TDA_SZ (qk_tap_dance_state_t *state, void *user_data) {
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
-    [TD_H] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
-    [TD_E] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
-    [TDA_E] = ACTION_TAP_DANCE_FN(F_TDA_E),
-    [TDA_Q] = ACTION_TAP_DANCE_FN(F_TDA_Q),
-    [TDA_P] = ACTION_TAP_DANCE_FN(F_TDA_P),
+    [TD_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
+    [TD_END] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
+    [TDA_EURO] = ACTION_TAP_DANCE_FN(F_TDA_EURO),
+    [TDA_AT] = ACTION_TAP_DANCE_FN(F_TDA_AT),
+    [TD_PIPE] = ACTION_TAP_DANCE_FN(F_TD_PIPE),
     [TDA_AE] = ACTION_TAP_DANCE_FN(F_TDA_AE),
     [TDA_UE] = ACTION_TAP_DANCE_FN(F_TDA_UE),
     [TDA_OE] = ACTION_TAP_DANCE_FN(F_TDA_OE),
@@ -191,15 +191,15 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_Q)  ,KC_W           ,TD(TDA_E)        ,KC_R       ,KC_T         ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
+  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_AT)  ,KC_W           ,TD(TDA_EURO)        ,KC_R       ,KC_T         ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
                                  KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
-                                 KC_LSHIFT  ,TD(TDA_P)  ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
+                                 KC_LSHIFT  ,TD(TD_PIPE)  ,KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
                                  KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,KC_APPLICATION   ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5        ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
                                  _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX      ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
                                  _______    ,ST_MACRO_2 ,TT(4)          ,_______          ,KC_INSERT  ,XXXXXXX      ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,XXXXXXX              ,_______        ,_______    ,TD(TD_E)      ,TD(TD_H)          ,_______),
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,XXXXXXX              ,_______        ,_______    ,TD(TD_END)      ,TD(TD_HOME)          ,_______),
 
   [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3             ,KC_4       ,KC_5         ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
                                  _______    ,DE_EXLM    ,XXXXXXX        ,DE_LCBR          ,DE_LBRC    ,DE_LPRN      ,DE_RPRN              ,DE_RBRC        ,DE_RCBR    ,DE_EQL         ,DE_QST           ,_______,
