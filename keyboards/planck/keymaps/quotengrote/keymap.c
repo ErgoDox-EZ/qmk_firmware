@@ -219,40 +219,40 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_AT) ,KC_W           ,TD(TDA_EURO)     ,KC_R       ,TD(TDA_TW)   ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
-                                 KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G         ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
-                                 KC_LSHIFT  ,TD(TD_PIPE),KC_X           ,KC_C             ,KC_V       ,KC_B         ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
-                                 KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,TD(TD_ALT)       ,TT(1)      ,KC_SPACE     ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
+  [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_AT) ,KC_W           ,TD(TDA_EURO)     ,KC_R       ,TD(TDA_TW)     ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
+                                 KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G           ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
+                                 KC_LSHIFT  ,TD(TD_PIPE),KC_X           ,KC_C             ,KC_V       ,KC_B           ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
+                                 KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,TD(TD_ALT)       ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
-  [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5        ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
-                                 _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX      ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
-                                 _______    ,ST_MACRO_2 ,TT(4)          ,_______          ,KC_INSERT  ,XXXXXXX      ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,XXXXXXX              ,_______        ,_______    ,TD(TD_END)      ,TD(TD_HOME)          ,_______),
+  [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5          ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
+                                 _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
+                                 _______    ,ST_MACRO_2 ,TT(4)          ,_______          ,KC_INSERT  ,XXXXXXX        ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,TD(TD_END)      ,TD(TD_HOME)          ,_______),
 
-  [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3             ,KC_4       ,KC_5         ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
-                                 _______    ,DE_EXLM    ,XXXXXXX        ,DE_LCBR          ,DE_LBRC    ,DE_LPRN      ,DE_RPRN              ,DE_RBRC        ,DE_RCBR    ,DE_EQL         ,DE_QST           ,_______,
-                                 _______    ,DE_LESS    ,LSFT(DE_LESS)  ,DE_DQOT          ,DE_ACUT    ,DE_QUOT      ,DE_SLSH              ,DE_BSLS        ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,XXXXXXX              ,_______        ,_______    ,_______        ,_______          ,_______),
+  [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3             ,KC_4       ,KC_5           ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
+                                 _______    ,DE_EXLM    ,XXXXXXX        ,DE_LCBR          ,DE_LBRC    ,DE_LPRN        ,DE_RPRN              ,DE_RBRC        ,DE_RCBR    ,DE_EQL         ,DE_QST           ,_______,
+                                 _______    ,DE_LESS    ,LSFT(DE_LESS)  ,DE_DQOT          ,DE_ACUT    ,DE_QUOT        ,DE_SLSH              ,DE_BSLS        ,_______    ,_______        ,_______          ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,_______        ,_______          ,_______),
 
-  [_ADJUST] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,MAGIC_TOGGLE_NKRO,_______    ,WEBUSB_PAIR  ,_______              ,_______        ,_______    ,_______        ,_______          ,_______,
-                                 TO(6)      ,_______    ,RGB_HUI        ,RGB_VAI          ,RGB_MOD    ,RGB_SPI      ,TOGGLE_LAYER_COLOR   ,RGB_TOG        ,LED_LEVEL  ,_______        ,HSV_17_255_211   ,RESET,
-                                 _______    ,_______    ,RGB_HUD        ,RGB_VAD          ,RGB_SLD    ,RGB_SPD      ,_______              ,_______        ,_______    ,_______        ,HSV_0_0_255      ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,KC_NO                ,_______        ,_______    ,_______        ,_______          ,_______),
+  [_ADJUST] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,MAGIC_TOGGLE_NKRO,_______    ,WEBUSB_PAIR    ,_______              ,_______        ,_______    ,_______        ,_______          ,_______,
+                                 TO(6)      ,_______    ,RGB_HUI        ,RGB_VAI          ,RGB_MOD    ,RGB_SPI        ,TOGGLE_LAYER_COLOR   ,RGB_TOG        ,LED_LEVEL  ,_______        ,HSV_17_255_211   ,RESET,
+                                 _______    ,_______    ,RGB_HUD        ,RGB_VAD          ,RGB_SLD    ,RGB_SPD        ,_______              ,_______        ,_______    ,_______        ,HSV_0_0_255      ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,KC_NO                ,_______        ,_______    ,_______        ,_______          ,_______),
 
-  [_NUMPAD] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,_______          ,_______    ,KC_KP_PLUS   ,KC_KP_7              ,KC_KP_8        ,KC_KP_9    ,KC_KP_ASTERISK ,_______          ,_______,
-                                 KC_CAPSLOCK,_______    ,_______        ,_______          ,_______    ,KC_KP_MINUS  ,KC_KP_4              ,KC_KP_5        ,KC_KP_6    ,KC_KP_SLASH    ,DE_EQL           ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,KC_NUMLOCK   ,KC_KP_1              ,KC_KP_2        ,KC_KP_3    ,KC_COMMA       ,KC_DOT           ,_______,
-                                 _______    ,_______    ,_______        ,TO(1)            ,TO(0)      ,_______      ,XXXXXXX              ,KC_KP_0        ,_______    ,_______        ,_______          ,_______),
+  [_NUMPAD] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,_______          ,_______    ,KC_KP_PLUS     ,KC_KP_7              ,KC_KP_8        ,KC_KP_9    ,KC_KP_ASTERISK ,_______          ,_______,
+                                 KC_CAPSLOCK,_______    ,_______        ,_______          ,_______    ,KC_KP_MINUS    ,KC_KP_4              ,KC_KP_5        ,KC_KP_6    ,KC_KP_SLASH    ,DE_EQL           ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,KC_NUMLOCK     ,KC_KP_1              ,KC_KP_2        ,KC_KP_3    ,KC_COMMA       ,KC_DOT           ,_______,
+                                 _______    ,_______    ,_______        ,TO(1)            ,TO(0)      ,_______        ,XXXXXXX              ,KC_KP_0        ,_______    ,_______        ,_______          ,_______),
 
-  [_LT] = LAYOUT_planck_grid(    _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,_______        ,_______    ,_______        ,KC_PSCREEN       ,KC_DELETE,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,_______        ,_______    ,LGUI(KC_L)     ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,KC_AUDIO_MUTE  ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,XXXXXXX              ,_______        ,_______    ,_______        ,_______          ,_______),
+  [_LT] = LAYOUT_planck_grid(    _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,_______              ,_______        ,_______    ,_______        ,KC_PSCREEN       ,KC_DELETE,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,KC_LEFT              ,KC_DOWN        ,KC_UP      ,KC_RIGHT       ,_______          ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,_______              ,KC_AUDIO_MUTE  ,_______    ,_______        ,_______          ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,_______        ,_______          ,_______),
 
-  [_GAMING] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,_______        ,_______    ,_______        ,_______          ,TO(0),
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,_______        ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______      ,_______              ,_______        ,_______    ,KC_PGUP        ,KC_UP            ,KC_PGDOWN,
-                                 _______    ,XXXXXXX    ,_______        ,XXXXXXX          ,KC_SPACE   ,_______      ,XXXXXXX              ,KC_SPACE       ,XXXXXXX    ,KC_LEFT        ,KC_DOWN          ,KC_RIGHT),
+  [_GAMING] = LAYOUT_planck_grid(_______    ,_______    ,_______        ,_______          ,_______    ,_______        ,_______              ,_______        ,_______    ,_______        ,_______          ,TO(0),
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,_______              ,_______        ,_______    ,_______        ,_______          ,_______,
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,_______              ,_______        ,_______    ,KC_PGUP        ,KC_UP            ,KC_PGDOWN,
+                                 _______    ,XXXXXXX    ,_______        ,XXXXXXX          ,KC_SPACE   ,_______        ,XXXXXXX              ,KC_SPACE       ,XXXXXXX    ,KC_LEFT        ,KC_DOWN          ,KC_RIGHT),
 
 };
 
@@ -273,7 +273,7 @@ const uint8_t PROGMEM ledmap[][DRIVER_LED_TOTAL][3] = {
 
     [4] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {14,255,255}, {14,255,255}, {14,255,255}, {33,255,255}, {0,0,0}, {0,0,0}, {0,0,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {14,255,255}, {14,255,255}, {14,255,255}, {33,255,255}, {80,145,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,255}, {14,255,255}, {14,255,255}, {14,255,255}, {80,145,233}, {80,145,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,255}, {0,0,255}, {0,0,0}, {14,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
-    [5] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {14,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
+    [5] = { {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {14,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {154,255,255}, {249,228,255}, {105,255,255}, {14,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {33,255,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0} },
 
     [6] = { {0,0,0}, {0,0,0}, {141,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {14,255,255}, {0,0,0}, {141,255,233}, {141,255,233}, {141,255,233}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,255}, {141,255,233}, {0,0,255}, {0,0,0}, {0,0,0}, {0,0,0}, {0,0,0}, {30,96,255}, {30,96,255}, {30,96,255}, {0,0,0}, {141,255,233}, {141,255,233}, {141,255,233} },
 
@@ -370,3 +370,14 @@ void matrix_scan_user(void) {}
 uint32_t layer_state_set_user(uint32_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
+/*
+//per Key-Tapping Time Funktion
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case KC_SPC: //Zeit für Leertaste was als "antippen" gilt
+            return 150;
+        default:
+            return TAPPING_TERM;
+    }
+}
+*/
