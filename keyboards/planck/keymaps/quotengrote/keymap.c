@@ -174,7 +174,7 @@ void F_TDA_SZ (qk_tap_dance_state_t *state, void *user_data) {
           }
 }
 
-// Funktion für TT-ACTION_TAP_DANCE_FN "Tab wiederherstellen in Browser"
+// Funktion für TT-ACTION_TAP_DANCE_FN T+"Tab wiederherstellen in Browser"
 void F_TDA_TW(qk_tap_dance_state_t *state, void *user_data) {
     switch(state->count){
         case 1:
@@ -200,12 +200,14 @@ void F_TDA_TW(qk_tap_dance_state_t *state, void *user_data) {
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
+    //Double
     [TD_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
     [TD_END] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_ALGR, KC_APPLICATION),
+    [TD_PIPE] = ACTION_TAP_DANCE_FN(F_TD_PIPE),
+    //Advanced
     [TDA_EURO] = ACTION_TAP_DANCE_FN(F_TDA_EURO),
     [TDA_AT] = ACTION_TAP_DANCE_FN(F_TDA_AT),
-    [TD_PIPE] = ACTION_TAP_DANCE_FN(F_TD_PIPE),
     [TDA_AE] = ACTION_TAP_DANCE_FN(F_TDA_AE),
     [TDA_UE] = ACTION_TAP_DANCE_FN(F_TDA_UE),
     [TDA_OE] = ACTION_TAP_DANCE_FN(F_TDA_OE),
