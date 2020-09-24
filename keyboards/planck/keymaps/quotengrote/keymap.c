@@ -45,8 +45,6 @@ enum {
     TDA_EURO, //TT-ACTION_TAP_DANCE_FN €
     TDA_AT, //TT-ACTION_TAP_DANCE_FN @
     TD_PIPE, //TT-ACTION_TAP_DANCE_FN |
-    TD_HOME_PUP, //TT-ACTION_TAP_DANCE_DOUBLE "Home" + Page Up
-    TD_END_PGD, //TT-ACTION_TAP_DANCE_DOUBLE "End" + Page Down
     TD_HOME_ARR, //TT-ACTION_TAP_DANCE_DOUBLE Pfeil hoch + Home
     TD_END_ARR, //TT-ACTION_TAP_DANCE_DOUBLE Pfeil runter + Ende
     TD_ALT, //TT-ACTION_TAP_DANCE_DOUBLE "AltGr/RALT"
@@ -202,8 +200,6 @@ void F_TDA_TW(qk_tap_dance_state_t *state, void *user_data) {
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
-    [TD_HOME_PUP] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
-    [TD_END_PGD] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
     [TD_HOME_ARR] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_HOME),
     [TD_END_ARR] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_END),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_ALGR, KC_APPLICATION),
@@ -231,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5          ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
                                  _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
                                  _______    ,ST_MACRO_2 ,TT(4)          ,_______          ,KC_INSERT  ,XXXXXXX        ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,TD(TD_END_PGD) ,TD(TD_HOME_PUP)  ,_______),
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,KC_PGDOWN      ,KC_PGUP          ,_______),
 
   [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3             ,KC_4       ,KC_5           ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
                                  _______    ,DE_EXLM    ,XXXXXXX        ,DE_LCBR          ,DE_LBRC    ,DE_LPRN        ,DE_RPRN              ,DE_RBRC        ,DE_RCBR    ,DE_EQL         ,DE_QST           ,_______,
