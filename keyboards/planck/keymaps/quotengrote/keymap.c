@@ -45,8 +45,8 @@ enum {
     TDA_EURO, //TT-ACTION_TAP_DANCE_FN €
     TDA_AT, //TT-ACTION_TAP_DANCE_FN @
     TD_PIPE, //TT-ACTION_TAP_DANCE_FN |
-    TD_HOME, //TT-ACTION_TAP_DANCE_DOUBLE "Home"
-    TD_END, //TT-ACTION_TAP_DANCE_DOUBLE "End"
+    TD_HOME_ARR, //TT-ACTION_TAP_DANCE_DOUBLE Pfeil hoch + Home
+    TD_END_ARR, //TT-ACTION_TAP_DANCE_DOUBLE Pfeil runter + Ende
     TD_ALT, //TT-ACTION_TAP_DANCE_DOUBLE "AltGr/RALT"
     TDA_TW //TT-ACTION_TAP_DANCE_FN "Tab wiederherstellen in Browser"
 };
@@ -200,9 +200,8 @@ void F_TDA_TW(qk_tap_dance_state_t *state, void *user_data) {
 
 //TT+TDA-Funktion
 qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
-    //Double
-    [TD_HOME] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
-    [TD_END] = ACTION_TAP_DANCE_DOUBLE(KC_PGDOWN, KC_END),
+    [TD_HOME_ARR] = ACTION_TAP_DANCE_DOUBLE(KC_UP, KC_HOME),
+    [TD_END_ARR] = ACTION_TAP_DANCE_DOUBLE(KC_DOWN, KC_END),
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_ALGR, KC_APPLICATION),
     [TD_PIPE] = ACTION_TAP_DANCE_FN(F_TD_PIPE),
     //Advanced
@@ -224,12 +223,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,TD(TDA_AT) ,KC_W           ,TD(TDA_EURO)     ,KC_R       ,TD(TDA_TW)     ,DE_Z                 ,TD(TDA_UE)     ,KC_I       ,TD(TDA_OE)     ,KC_P             ,KC_BSPACE,
                                  KC_TAB     ,TD(TDA_AE) ,TD(TDA_SZ)     ,KC_D             ,KC_F       ,KC_G           ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
                                  KC_LSHIFT  ,TD(TD_PIPE),KC_X           ,KC_C             ,KC_V       ,KC_B           ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
-                                 KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,TD(TD_ALT)       ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
+                                 KC_LCTRL   ,KC_LGUI    ,KC_LALT        ,TD(TD_ALT)       ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,TD(TD_END_ARR) ,TD(TD_HOME_ARR)  ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3            ,KC_F4      ,KC_F5          ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
                                  _______    ,ST_MACRO_0 ,KC_CALCULATOR  ,ST_MACRO_1       ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
                                  _______    ,ST_MACRO_2 ,TT(4)          ,_______          ,KC_INSERT  ,XXXXXXX        ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
-                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,TD(TD_END)      ,TD(TD_HOME)          ,_______),
+                                 _______    ,_______    ,_______        ,_______          ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,KC_PGDOWN      ,KC_PGUP          ,_______),
 
   [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3             ,KC_4       ,KC_5           ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
                                  _______    ,DE_EXLM    ,XXXXXXX        ,DE_LCBR          ,DE_LBRC    ,DE_LPRN        ,DE_RPRN              ,DE_RBRC        ,DE_RCBR    ,DE_EQL         ,DE_QST           ,_______,
