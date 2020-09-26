@@ -15,14 +15,14 @@
 
 //led startup farbe + muster
 
-/*
+
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_ALPHAS_MODS //Sets the default mode, if none has been set; modus von links, unten und rechts eine farbe haben, und die anderen tasten eine andere/ RGB_MATRIX_ALPHAS_MODS,         // Static dual hue, speed is hue for secondary hue, rgb_spi ist außen, rgb_hui innen
 #define RGB_MATRIX_STARTUP_SAT 254 //Sets the default saturation value, if none has been set
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 220 // Sets the default brightness value, if none has been set
 
-#define RGB_MATRIX_STARTUP_HUE 150 // Sets the default hue value, if none has been set
-#define RGB_MATRIX_STARTUP_SPD 50 // Sets the default animation speed, if none has been set
-*/
+#define RGB_MATRIX_STARTUP_HUE 155 // Sets the default hue value, if none has been set //innen // dunkles blau
+#define RGB_MATRIX_STARTUP_SPD 115 // Sets the default animation speed, if none has been set //außen // um 110 ist orange
+
 #define RGB_DISABLE_TIMEOUT 600000 // number of milliseconds to wait until rgb automatically turns off = 10min
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true // turn off effects when suspended
 
