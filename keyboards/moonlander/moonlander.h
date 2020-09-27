@@ -27,9 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ML_LED_5(status) mcp23018_leds[1] = (bool)status
 #define ML_LED_6(status) mcp23018_leds[2] = (bool)status
 
-extern bool mcp23018_leds[3];
-
 #include "quantum.h"
+
+extern bool mcp23018_leds[3];
 
 // clang-format off
 #define LAYOUT_moonlander( \

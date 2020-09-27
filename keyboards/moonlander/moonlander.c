@@ -165,6 +165,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     state         = layer_state_set_user(state);
     if (is_launching) return state;
 
+#ifndef DISABLE_DEFAULT_ML_LEDS_LOGIC
     ML_LED_1(false);
     ML_LED_2(false);
     ML_LED_3(false);
@@ -172,7 +173,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     ML_LED_5(false);
     ML_LED_6(false);
 
-#ifndef DISABLE_DEFAULT_ML_LEDS_LOGIC
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case 1:
