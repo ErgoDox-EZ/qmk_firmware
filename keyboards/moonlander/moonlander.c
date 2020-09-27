@@ -172,6 +172,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     ML_LED_5(false);
     ML_LED_6(false);
 
+#ifndef DISABLE_DEFAULT_ML_LEDS_LOGIC
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case 1:
@@ -198,6 +199,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         default:
             break;
     }
+#endif
 
     return state;
 }
