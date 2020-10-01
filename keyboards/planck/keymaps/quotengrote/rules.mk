@@ -8,4 +8,4 @@ WEBUSB_ENABLE = yes
 ORYX_ENABLE = yes
 
 #Tap Dance
-#TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = yes

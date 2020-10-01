@@ -10,7 +10,7 @@
 #define FIRMWARE_VERSION u8"Ppzmm/554eY"
 
 //tap dance
-//#define TAPPING_TERM 200 //in milliseconds
+#define TAPPING_TERM 200 //in milliseconds
 //#define TAPPING_TERM_PER_KEY //tapping term per key, als funktion
 
 //led startup farbe + muster
