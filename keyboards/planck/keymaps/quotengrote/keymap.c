@@ -102,12 +102,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  KC_LCTRL   ,KC_LGUI    ,TD(TD_ALT)     ,LT(4,KC_APPLICATION) ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1      ,KC_F2          ,KC_F3                ,KC_F4      ,KC_F5          ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
-                                 _______    ,MCR_KA     ,_______        ,_______              ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
-                                 _______    ,MCR_KK     ,_______        ,_______              ,KC_INSERT  ,XXXXXXX        ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
+                                 _______    ,MCR_KA     ,XXXXXXX        ,XXXXXXX              ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
+                                 _______    ,MCR_KK     ,XXXXXXX        ,XXXXXXX              ,KC_INSERT  ,XXXXXXX        ,XXXXXXX              ,KC_PAUSE       ,_______    ,_______        ,_______          ,_______,
                                  _______    ,_______    ,_______        ,_______              ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,KC_PGDOWN      ,KC_PGUP          ,_______),
 
   [_RAISE] = LAYOUT_planck_grid( _______    ,KC_1       ,KC_2           ,KC_3                 ,KC_4       ,KC_5           ,KC_6                 ,KC_7           ,KC_8       ,KC_9           ,KC_0             ,_______,
-                                 _______    ,DE_EXLM    ,DE_CIRC        ,_______              ,_______    ,TD(TDA_KLMR_O) ,TD(TDA_KLMR_S)       ,_______        ,DE_TILD    ,DE_EQL         ,DE_QST           ,_______,
+                                 _______    ,DE_EXLM    ,DE_CIRC        ,XXXXXXX              ,XXXXXXX    ,TD(TDA_KLMR_O) ,TD(TDA_KLMR_S)       ,XXXXXXX        ,DE_TILD    ,DE_EQL         ,DE_QST           ,_______,
                                  _______    ,DE_LESS    ,LSFT(DE_LESS)  ,DE_DQOT              ,DE_ACUT    ,DE_QUOT        ,DE_SLSH              ,DE_BSLS        ,_______    ,_______        ,_______          ,_______,
                                  _______    ,_______    ,_______        ,_______              ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,KC_END         ,KC_HOME          ,_______),
 
