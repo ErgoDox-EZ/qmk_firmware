@@ -47,22 +47,7 @@ enum {
     TD_ALT, //TT-ACTION_TAP_DANCE_DOUBLE "AltGr/RALT"
     TDA_KLMR_O, //TT-ACTION_TAP_DANCE_DOUBLE {[(
     TDA_KLMR_S, //TT-ACTION_TAP_DANCE_DOUBLE )]}
-    TDA_OSGUI, //TT-ACTION_TAP_DANCE_DOUBLE )]}
 };
-
-//Funktion für TT-ACTION_TAP_DANCE_FN "Klammern auf"
-void F_TDA_OSGUI (qk_tap_dance_state_t *state, void *user_data) {
-    switch(state->count){
-        case 1:
-            register_code16(KC_LGUI);
-            unregister_code16(KC_LGUI);
-            break;
-        case 2:
-            register_code16(KC_APPLICATION);
-            unregister_code16(KC_APPLICATION);
-            break;
-          }
-}
 
 //Funktion für TT-ACTION_TAP_DANCE_FN "Klammern auf"
 void F_TDA_KLMR_O (qk_tap_dance_state_t *state, void *user_data) {
@@ -106,7 +91,6 @@ qk_tap_dance_action_t tap_dance_actions[] = { //mit TD(Name) in Keymap einbinden
     [TD_ALT] = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_ALGR),
     [TDA_KLMR_O] = ACTION_TAP_DANCE_FN(F_TDA_KLMR_O),
     [TDA_KLMR_S] = ACTION_TAP_DANCE_FN(F_TDA_KLMR_S),
-    [TDA_OSGUI] = ACTION_TAP_DANCE_FN(F_TDA_OSGUI),
 };
 
 
@@ -114,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_planck_grid(  KC_ESCAPE  ,KC_Q           ,KC_W           ,KC_E                 ,KC_R       ,KC_T           ,DE_Z                 ,KC_U           ,KC_I       ,KC_O           ,KC_P             ,KC_BSPACE,
                                  KC_TAB     ,KC_A           ,DE_S           ,KC_D                 ,KC_F       ,KC_G           ,KC_H                 ,KC_J           ,KC_K       ,KC_L           ,DE_PLUS          ,KC_ENTER,
                                  KC_LSHIFT  ,DE_Y           ,KC_X           ,KC_C                 ,KC_V       ,KC_B           ,KC_N                 ,KC_M           ,KC_COMMA   ,KC_DOT         ,DE_MINS          ,LT(5,DE_HASH),
-                                 KC_LCTRL   ,TD(TDA_OSGUI)  ,TD(TD_ALT)     ,TT(4)                ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
+                                 KC_LCTRL   ,KC_LGUI        ,TD(TD_ALT)     ,TT(4)                ,TT(1)      ,LT(5,KC_SPACE) ,XXXXXXX              ,TT(2)          ,KC_LEFT    ,KC_DOWN        ,KC_UP            ,KC_RIGHT),
 
   [_LOWER] = LAYOUT_planck_grid( _______    ,KC_F1          ,KC_F2          ,KC_F3                ,KC_F4      ,KC_F5          ,KC_F6                ,KC_F7          ,KC_F8      ,KC_F9          ,KC_F10           ,_______,
                                  _______    ,MCR_KA         ,XXXXXXX        ,XXXXXXX              ,XXXXXXX    ,XXXXXXX        ,XXXXXXX              ,XXXXXXX        ,XXXXXXX    ,KC_F11         ,KC_F12           ,_______,
