@@ -1,5 +1,9 @@
 #pragma once
 
+// aus /keyboards/planck/ez/config.h
+// Anzhalt Taps für TT um Layer zu "locken"
+#define TAPPING_TOGGLE 2
+
 //#define ENCODER_RESOLUTION 4
 
 /*
@@ -67,4 +71,4 @@
 
 
 //für ipad
-#define USB_MAX_POWER_CONSUMPTION 50
+#define USB_MAX_POWER_CONSUMPTION 100

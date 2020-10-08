@@ -154,7 +154,7 @@
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
-#define TAPPING_TOGGLE  1
+//#define TAPPING_TOGGLE 1 Besser in eigener config.h definieren
 
 #define MOUSEKEY_INTERVAL           20
 #define MOUSEKEY_DELAY              0
