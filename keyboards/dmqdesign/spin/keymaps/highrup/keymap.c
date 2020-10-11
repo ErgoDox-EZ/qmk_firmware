@@ -498,14 +498,14 @@ uint8_t currentLayer = biton32(layer_state);
       case _PHOTOSHOP:
         if (pshop_enabled) {
           if (!clockwise) {
-            tap_code16(LSFT(KC_EQL));
-          } else {
             tap_code16(LSFT(KC_MINS));
+          } else {
+            tap_code16(LSFT(KC_EQL));
           }
         } else {
           uint8_t mods = get_mods();
           if (mods & MOD_MASK_SHIFT) {
-            if (clockwise) {
+            if (!clockwise) {
               unregister_mods(MOD_MASK_SHIFT);
               if (opacity < 0 + opacity_increment) {
                 opacity = 0;
@@ -551,9 +551,9 @@ uint8_t currentLayer = biton32(layer_state);
             }
           } else {
             if (!clockwise) {
-              tap_code16(LSFT(LCTL(KC_Z)));
-            } else {
               tap_code16(LCTL(KC_Z));
+            } else {
+              tap_code16(LSFT(LCTL(KC_Z)));
             }
           }
         }
@@ -561,38 +561,38 @@ uint8_t currentLayer = biton32(layer_state);
       case _GAME:
         if (game_enabled) {
           if (!clockwise) {
-            tap_code16(LSFT(KC_TAB));
-          } else {
             tap_code16(KC_TAB);
+          } else {
+            tap_code16(LSFT(KC_TAB));
           }
         } else {
           if (!clockwise) {
-            tap_code16(LSFT(KC_TAB));
-          } else {
             tap_code(KC_TAB);
+          } else {
+            tap_code16(LSFT(KC_TAB));
           }
         }
         break;
       default:
         if (tabswitcher_enabled) {
           if (!clockwise) {
-            tap_code16(KC_TAB);
-          } else {
             tap_code16(LSFT(KC_TAB));
+          } else {
+            tap_code16(KC_TAB);
           }
         } else {
           uint8_t mods = get_mods();
           if (mods & MOD_MASK_SHIFT) {
             if (!clockwise) {
-              tap_code(KC_WFWD);
-            } else {
               tap_code(KC_WBAK);
+            } else {
+              tap_code(KC_WFWD);
             }
           } else {
             if (!clockwise) {
-              tap_code16(LCTL(KC_PGDN));
-            } else {
               tap_code16(LCTL(KC_PGUP));
+            } else {
+              tap_code16(LCTL(KC_PGDN));
             }
           }
         }
@@ -603,49 +603,49 @@ uint8_t currentLayer = biton32(layer_state);
       case _PHOTOSHOP:
         if (pshop2_enabled) {
           if (!clockwise) {
-            tap_code16(LSFT(KC_LBRC));
-          } else {
             tap_code16(LSFT(KC_RBRC));
+          } else {
+            tap_code16(LSFT(KC_LBRC));
           }
         } else {
           if (!clockwise) {
-            tap_code(KC_RBRC);
-          } else {
             tap_code(KC_LBRC);
+          } else {
+            tap_code(KC_RBRC);
           }
         }
         break;
       case _GAME:
         if (game2_enabled) {
           if (!clockwise) {
-            tap_code(KC_LBRC);
-          } else {
             tap_code(KC_RBRC);
+          } else {
+            tap_code(KC_LBRC);
           }
         } else {
           if (!clockwise) {
-            tap_code16(KC_WH_U);
-          } else {
             tap_code16(KC_WH_D);
+          } else {
+            tap_code16(KC_WH_U);
           }
         }
         break;
       case _RAISE:
         if (media_enabled) {
           if (!clockwise) {
-            tap_code(KC_MNXT);
-          } else {
             tap_code(KC_MPRV);
+          } else {
+            tap_code(KC_MNXT);
           }
         } else {
           uint8_t mods = get_mods();
           if (mods & MOD_MASK_SHIFT) {
             if (!clockwise) {
               unregister_mods(MOD_MASK_SHIFT);
-              tap_code(KC_RIGHT);
+              tap_code(KC_LEFT);
             } else {
               unregister_mods(MOD_MASK_SHIFT);
-              tap_code(KC_LEFT);
+              tap_code(KC_RIGHT);
             }
             if(mods & MOD_BIT(KC_LSFT)){
               register_code(KC_LSFT);
@@ -665,23 +665,23 @@ uint8_t currentLayer = biton32(layer_state);
       case _ADJUST:
         if (adjust_enabled) {
           if (!clockwise) {
-            tap_code16(RGB_MOD);
-          } else {
             tap_code16(RGB_RMOD);
+          } else {
+            tap_code16(RGB_MOD);
           }
         } else {
           uint8_t mods = get_mods();
           if (mods & MOD_MASK_SHIFT) {
             if (!clockwise) {
-              rgblight_increase_val();
-            } else {
               rgblight_decrease_val();
+            } else {
+              rgblight_increase_val();
             }
           } else {
             if (!clockwise) {
-              rgblight_increase_hue();
-            } else {
               rgblight_decrease_hue();
+            } else {
+              rgblight_increase_hue();
             }
           }
         }
@@ -698,10 +698,10 @@ uint8_t currentLayer = biton32(layer_state);
           if (mods & MOD_MASK_SHIFT) {
             if (!clockwise) {
               unregister_mods(MOD_MASK_SHIFT);
-              tap_code(KC_RIGHT);
+              tap_code(KC_LEFT);
             } else {
               unregister_mods(MOD_MASK_SHIFT);
-              tap_code(KC_LEFT);
+              tap_code(KC_RIGHT);
             }
             if(mods & MOD_BIT(KC_LSFT)){
               register_code(KC_LSFT);
@@ -711,9 +711,9 @@ uint8_t currentLayer = biton32(layer_state);
             }
           } else {
             if (!clockwise) {
-              tap_code16(KC_WH_D);
-            } else {
               tap_code16(KC_WH_U);
+            } else {
+              tap_code16(KC_WH_D);
             }
           }
         }
@@ -724,26 +724,26 @@ uint8_t currentLayer = biton32(layer_state);
       default:
         if (appswitcher_enabled) {
           if (!clockwise) {
-            tap_code16(KC_TAB);
-          } else {
             tap_code16(LSFT(KC_TAB));
+          } else {
+            tap_code16(KC_TAB);
           }
         } else {
           uint8_t mods = get_mods();
           if (mods & MOD_MASK_SHIFT) {
             if (!clockwise) {
-              selected_layer ++;
-            } else {
               selected_layer --;
+            } else {
+              selected_layer ++;
             }
             layer_clear();
             layer_on(selected_layer % 7);
           } else {
             if (!clockwise) {
-              tap_code(KC_VOLU);
+              tap_code(KC_VOLD);
               mute_enabled = false;
             } else {
-              tap_code(KC_VOLD);
+              tap_code(KC_VOLU);
               mute_enabled = false;
             }
           }
@@ -1529,7 +1529,7 @@ void render_status_secondary(void) {
     oled_write_ln("", false);
     render_prompt();
     oled_write_ln_P(PSTR(" "), false);
-    draw_clock();
+    oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
