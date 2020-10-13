@@ -1,0 +1,16 @@
+{
+  "uploadOnSave": true,
+  "useAtomicWrites": true,
+  "deleteLocal": false,
+  "hostname": "qmk-planck.grote.lan",
+  "port": "22",
+  "target": "/home/mg/qmk_firmware",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "mg",
+  "keyfile": "C:/Users/mg/Desktop/NextCloud/Rest/ssh-keys/heimserver/private.ppk",
+  "transport": "scp",
+  "watch": []
+}
