@@ -197,91 +197,61 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 )
 };
 
-// Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
-const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, 180, 255, 255},       // Light 3 LEDs, starting with LED 1
-    {1, 3, 160, 255, 255},       // Light 3 LEDs, starting with LED 2
-    {2, 3, 140, 255, 255}       // Light 3 LEDs, starting with LED 3
-);
-const rgblight_segment_t PROGMEM my_mid_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_GREEN},       // These are test colors until i set gradients
-    {1, 3, HSV_GREEN},
-    {2, 3, HSV_GREEN}
-);
-const rgblight_segment_t PROGMEM my_music_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_MAGENTA},
-    {1, 3, HSV_MAGENTA},
-    {2, 3, HSV_MAGENTA}
-);
-const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_PINK},
-    {1, 3, HSV_PINK},
-    {2, 3, HSV_PINK}
-);
-const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_ORANGE},
-    {1, 3, HSV_ORANGE},
-    {2, 3, HSV_ORANGE}
-);
-const rgblight_segment_t PROGMEM my_photoshop_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_BLUE},
-    {1, 3, HSV_BLUE},
-    {2, 3, HSV_BLUE}
-);
-const rgblight_segment_t PROGMEM my_indesign_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_PURPLE},
-    {1, 3, HSV_PURPLE},
-    {2, 3, HSV_PURPLE}
-);
-const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_GOLD},
-    {1, 3, HSV_GOLD},
-    {2, 3, HSV_GOLD}
-);
-const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_TURQUOISE},
-    {1, 3, HSV_TURQUOISE},
-    {2, 3, HSV_TURQUOISE}
-);
-
-// Now define the array of layers. Later layers take precedence
-const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
-    my_base_layer,
-    my_mid_layer,
-    my_music_layer,
-    my_adjust_layer,
-    my_game_layer,
-    my_photoshop_layer,
-    my_indesign_layer,
-    my_capslock_layer,
-    my_numlock_layer
-);
-
 void keyboard_post_init_user(void) {
-    // Enable the LED layers
-    rgblight_layers = my_rgb_layers;
-}
+    setrgb(185, 31, 203, &led[0]);
+    setrgb(97, 51, 158, &led[1]);
+    setrgb(52, 54, 104, &led[2]);
+    rgblight_set();
+};
 
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // Both layers will light up if both kb layers are active
-    rgblight_set_layer_state(0, layer_state_cmp(state, 0));       // Layers 1-7
-    rgblight_set_layer_state(1, layer_state_cmp(state, 1));
-    rgblight_set_layer_state(2, layer_state_cmp(state, 2));
-    rgblight_set_layer_state(3, layer_state_cmp(state, 3));
-    rgblight_set_layer_state(4, layer_state_cmp(state, 4));
-    rgblight_set_layer_state(5, layer_state_cmp(state, 5));
-    rgblight_set_layer_state(6, layer_state_cmp(state, 6));
-    return state;
-}
-
-bool led_update_user(led_t led_state) {
-    rgblight_set_layer_state(7, led_state.caps_lock);       // These are seperate layers for key toggles
-    rgblight_set_layer_state(8, led_state.num_lock);
-    return true;
-}
+void matrix_scan_user(void) { //This will run every time the layer is updated
+static uint8_t old_layer = 255;
+uint8_t new_layer = biton32(layer_state);
+  if (old_layer != new_layer) {
+    switch (new_layer) {
+      default:
+        setrgb(0, 0, 0, &led[0]);
+        setrgb(0, 0, 0, &led[1]);
+        setrgb(RGB_WHITE, &led[2]); //Set the bottom LED to white for the bottom layer
+        break;
+      case _MID:
+        setrgb(0, 0, 0, &led[0]);
+        setrgb(RGB_WHITE, &led[1]); //Set the middle LED to white for the middle layer
+        setrgb(0, 0, 0, &led[2]);
+        break;
+      case _RAISE:
+        setrgb(RGB_WHITE, &led[0]); //Set the top LED to white for the top layer
+        setrgb(0, 0, 0, &led[1]);
+        setrgb(0, 0, 0, &led[2]);
+        break;
+      case _ADJUST:
+        setrgb(185, 31, 203, &led[0]);
+        setrgb(97, 51, 158, &led[1]);
+        setrgb(52, 54, 104, &led[2]);
+        break;
+      case _GAME:
+        setrgb(202, 50, 15, &led[0]);
+        setrgb(189, 75, 29, &led[1]);
+        setrgb(182, 85, 34, &led[2]);
+        break;
+      case _PHOTOSHOP:
+        setrgb(0, 94, 222, &led[0]);
+        setrgb(25, 74, 120, &led[1]);
+        setrgb(44, 65, 100, &led[2]);
+        break;
+      case _INDESIGN:
+        setrgb(187, 14, 207, &led[0]);
+        setrgb(128, 57, 136, &led[1]);
+        setrgb(80, 61, 82, &led[2]);
+        break;
+      }
+      old_layer = new_layer;
+    }
+  rgblight_set();
+};
 
 void suspend_power_down_user(void) {
-    //rgb_matrix_set_suspend_state(true);       // Figure out this function so the leds will turn off and back on when system is powered/sleep mode
+    //rgb_matrix_set_suspend_state(true);
 }
 
 void suspend_wakeup_init_user(void) {
@@ -922,7 +892,7 @@ static void render_statement_logo(void) {
     0x02, 0x01, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
 };
   oled_write_raw_P(statement_logo, sizeof(statement_logo));
 }
@@ -1014,7 +984,7 @@ static void render_acrnym_logo(void) {
     0x00, 0x00, 0x00, 0x00, 0x01, 0x03,
     0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0x7E,
     0x7C, 0x78, 0x70, 0x60, 0x40, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
   };
   oled_write_raw_P(acrnym_logo, sizeof(acrnym_logo));
 }
@@ -1106,7 +1076,7 @@ static void render_dead_logo(void) {
     0x60, 0x20, 0x20, 0x10, 0x10, 0x10,
     0x20, 0x20, 0x60, 0x40, 0x50, 0x50,
     0x68, 0x04, 0x03, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
     };
     oled_write_raw_P(dead_logo, sizeof(dead_logo));
 }
@@ -1197,7 +1167,7 @@ static void render_media_logo(void) {
     0x0E, 0x0F, 0x73, 0x7D, 0x7E, 0x5F,
     0x7F, 0x3F, 0x77, 0x5F, 0x7F, 0x3F,
     0x6D, 0x3F, 0x6B, 0x3F, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
     };
     oled_write_raw_P(media_logo, sizeof(media_logo));
 }
@@ -1289,7 +1259,7 @@ static void render_wow_logo(void) {
     0x19, 0x28, 0x04, 0x00, 0x00, 0x00,
     0x00, 0x10, 0x30, 0x5F, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
     };
     oled_write_raw_P(wow_logo, sizeof(wow_logo));
 }
@@ -1381,7 +1351,7 @@ static void render_akira_logo(void) {
     0x01, 0x03, 0x00, 0x59, 0x1B, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00
     };
     oled_write_raw_P(akira_logo, sizeof(akira_logo));
 }

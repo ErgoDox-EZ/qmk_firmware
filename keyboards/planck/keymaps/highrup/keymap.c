@@ -763,8 +763,8 @@ switch (keycode) {
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
-uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
+uint8_t muse_offset = 90;
+uint16_t muse_tempo = 20;
 void encoder_update(bool clockwise) {
 switch(get_highest_layer(layer_state)) {
   case _LOWER:
@@ -809,9 +809,9 @@ switch(get_highest_layer(layer_state)) {
     } else {
       if (tabswitcher_enabled) {
         if (!clockwise) {
-          tap_code16(KC_TAB);
-        } else {
           tap_code16(LSFT(KC_TAB));
+        } else {
+          tap_code16(KC_TAB);
         }
       } else {
         uint8_t mods = get_mods();
@@ -823,9 +823,9 @@ switch(get_highest_layer(layer_state)) {
           }
         } else {
           if (!clockwise) {
-            tap_code16(LCTL(KC_PGDN));
-          } else {
             tap_code16(LCTL(KC_PGUP));
+          } else {
+            tap_code16(LCTL(KC_PGDN));
           }
         }
       }
@@ -929,9 +929,9 @@ switch(get_highest_layer(layer_state)) {
     } else {
       if (appswitcher_enabled) {
         if (!clockwise) {
-          tap_code16(KC_TAB);
-        } else {
           tap_code16(LSFT(KC_TAB));
+        } else {
+          tap_code16(KC_TAB);
         }
       } else {
         uint8_t mods = get_mods();
@@ -951,9 +951,9 @@ switch(get_highest_layer(layer_state)) {
           }
         } else {
           if (!clockwise) {
-            tap_code(KC_WH_D);
-          } else {
             tap_code(KC_WH_U);
+          } else {
+            tap_code(KC_WH_D);
           }
         }
       }
@@ -966,18 +966,20 @@ void dip_update(uint8_t index, bool active) {
 switch (index) {
   default:
     if (active) {
+      muse_mode = true;
       #ifdef AUDIO_ENABLE
         PLAY_SONG(plover_song);
       #endif
       layer_on(_ADJUST);
     } else {
+      muse_mode = false;
       #ifdef AUDIO_ENABLE
         PLAY_SONG(plover_gb_song);
       #endif
       layer_off(_ADJUST);
     }
     break;
-  case _LOWER:
+  case _RAISE:
     if (active) {
       muse_mode = true;
     } else {
