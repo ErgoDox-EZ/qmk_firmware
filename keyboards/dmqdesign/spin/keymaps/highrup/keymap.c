@@ -41,6 +41,9 @@
     #define KEYLOGGER_LENGTH ((int)(OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH))
 #endif
 
+#define SLEEP_TIMEOUT 15000
+#define SCREEN_TIMEOUT 10000
+
 #ifdef OLED_DRIVER_ENABLE
 static uint32_t oled_timer = 0;
 static char keylog_str[KEYLOGGER_LENGTH + 1] = {"\n"};
@@ -200,48 +203,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Light LEDs 6 to 9 and 12 to 15 red when caps lock is active. Hard to ignore!
 const rgblight_segment_t PROGMEM my_base_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 3, 180, 255, 255},       // Light 3 LEDs, starting with LED 1
-    {1, 3, 160, 255, 255},       // Light 3 LEDs, starting with LED 2
-    {2, 3, 140, 255, 255}       // Light 3 LEDs, starting with LED 3
+    {1, 3, 170, 200, 255},       // Light 3 LEDs, starting with LED 2
+    {2, 3, 160, 170, 255}       // Light 3 LEDs, starting with LED 3
 );
 const rgblight_segment_t PROGMEM my_mid_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_GREEN},       // These are test colors until i set gradients
-    {1, 3, HSV_GREEN},
-    {2, 3, HSV_GREEN}
+    {0, 3, 175, 190, 255},       // These are test colors until i set gradients
+    {1, 3, 180, 210, 255},
+    {2, 3, 180, 255, 255}
 );
 const rgblight_segment_t PROGMEM my_music_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_MAGENTA},
-    {1, 3, HSV_MAGENTA},
-    {2, 3, HSV_MAGENTA}
+    {0, 3, 220, 255, 255},
+    {1, 3, 205, 220, 255},
+    {2, 3, 200, 170, 255}
 );
 const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_PINK},
-    {1, 3, HSV_PINK},
-    {2, 3, HSV_PINK}
+    {0, 3, 0, 0, 255},
+    {1, 3, 0, 0, 155},
+    {2, 3, 0, 0, 85}
 );
 const rgblight_segment_t PROGMEM my_game_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_ORANGE},
-    {1, 3, HSV_ORANGE},
-    {2, 3, HSV_ORANGE}
+    {0, 3, 0, 230, 255},
+    {1, 3, 255, 210, 255},
+    {2, 3, 10, 170, 255}
 );
 const rgblight_segment_t PROGMEM my_photoshop_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_BLUE},
-    {1, 3, HSV_BLUE},
-    {2, 3, HSV_BLUE}
+    {0, 3, 170, 255, 255},
+    {1, 3, 160, 220, 255},
+    {2, 3, 155, 170, 255}
 );
 const rgblight_segment_t PROGMEM my_indesign_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_PURPLE},
-    {1, 3, HSV_PURPLE},
-    {2, 3, HSV_PURPLE}
+    {0, 3, 200, 255, 255},
+    {1, 3, 190, 220, 255},
+    {2, 3, 185, 170, 255}
 );
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_GOLD},
-    {1, 3, HSV_GOLD},
-    {2, 3, HSV_GOLD}
+    {0, 3, 0, 0, 255},
+    {1, 3, 0, 0, 255},
+    {2, 3, 0, 0, 0}
 );
 const rgblight_segment_t PROGMEM my_numlock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
-    {0, 3, HSV_TURQUOISE},
-    {1, 3, HSV_TURQUOISE},
-    {2, 3, HSV_TURQUOISE}
+    {0, 3, 0, 0, 0},
+    {1, 3, 0, 0, 255},
+    {2, 3, 0, 0, 255}
 );
 
 // Now define the array of layers. Later layers take precedence
@@ -259,6 +262,12 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
 void keyboard_post_init_user(void) {
     // Enable the LED layers
+    // Call the post init code.
+    rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+    rgblight_sethsv_noeeprom(255, 255, 0); // sets the color to teal/cyan without saving
+    //rgblight_sethsv_at(HSV_WHITE, 0);
+    //rgblight_sethsv_at(HSV_WHITE, 1);
+    //rgblight_sethsv_at(HSV_WHITE, 2);
     rgblight_layers = my_rgb_layers;
 }
 
@@ -281,7 +290,7 @@ bool led_update_user(led_t led_state) {
 }
 
 void suspend_power_down_user(void) {
-    //rgb_matrix_set_suspend_state(true);       // Figure out this function so the leds will turn off and back on when system is powered/sleep mode
+    //rgb_matrix_set_suspend_state(true);
 }
 
 void suspend_wakeup_init_user(void) {
@@ -800,20 +809,20 @@ void add_keylog(uint16_t keycode) {
   }
 
   log_timer = timer_read();
-}
+};
 
 void update_log(void) {
     if (timer_elapsed(log_timer) > 750) {
         add_keylog(0);
     }
-}
+};
 
 //Text only renders
 void render_keylogger_status(void) {
     oled_write_P(PSTR("KLGGR"), false);
     oled_write(keylog_str, false);
     oled_write_ln_P(PSTR(" "), false);
-}
+};
 
 void render_keylock_status(uint8_t led_usb_state) {
     oled_write_P(PSTR("LOCK:"), false);
@@ -821,7 +830,7 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_ln_P(PSTR("NUML"), led_usb_state & (1 << USB_LED_NUM_LOCK));
     //oled_write_ln_P(PSTR("SCRL"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
     oled_write_ln_P(PSTR(" "), false);
-}
+};
 
 void render_mod_status_text(uint8_t modifiers) {
     oled_write_P(PSTR("MODS:"), false);
@@ -829,7 +838,7 @@ void render_mod_status_text(uint8_t modifiers) {
     oled_write_ln_P(PSTR("CTRL"), (modifiers & MOD_MASK_CTRL));
     oled_write_ln_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
     //oled_write_ln_P(PSTR("WIN"), (modifiers & MOD_MASK_GUI));
-}
+};
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
@@ -922,10 +931,10 @@ static void render_statement_logo(void) {
     0x02, 0x01, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-};
+    0x00, 0x00, 0x00
+    };
   oled_write_raw_P(statement_logo, sizeof(statement_logo));
-}
+};
 
 static void render_acrnym_logo(void) {
   static const char PROGMEM acrnym_logo[] = {
@@ -1014,13 +1023,13 @@ static void render_acrnym_logo(void) {
     0x00, 0x00, 0x00, 0x00, 0x01, 0x03,
     0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0x7E,
     0x7C, 0x78, 0x70, 0x60, 0x40, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-  };
+    0x00, 0x00, 0x00
+    };
   oled_write_raw_P(acrnym_logo, sizeof(acrnym_logo));
-}
+};
 
 static void render_dead_logo(void) {
-    static const char PROGMEM dead_logo[] = {
+  static const char PROGMEM dead_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
     0x60, 0x10, 0x08, 0x08, 0x04, 0x04,
     0x04, 0x04, 0x04, 0x04, 0x04, 0x04,
@@ -1106,12 +1115,13 @@ static void render_dead_logo(void) {
     0x60, 0x20, 0x20, 0x10, 0x10, 0x10,
     0x20, 0x20, 0x60, 0x40, 0x50, 0x50,
     0x68, 0x04, 0x03, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00, 0x00
     };
-    oled_write_raw_P(dead_logo, sizeof(dead_logo));
-}
+  oled_write_raw_P(dead_logo, sizeof(dead_logo));
+};
+
 static void render_media_logo(void) {
-    static const char PROGMEM media_logo[] = {
+  static const char PROGMEM media_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0xF0, 0x30,
     0x70, 0xF0, 0xF0, 0xE0, 0x60, 0xE0,
     0x40, 0xC0, 0xC0, 0xC0, 0x80, 0x80,
@@ -1197,13 +1207,13 @@ static void render_media_logo(void) {
     0x0E, 0x0F, 0x73, 0x7D, 0x7E, 0x5F,
     0x7F, 0x3F, 0x77, 0x5F, 0x7F, 0x3F,
     0x6D, 0x3F, 0x6B, 0x3F, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00, 0x00
     };
-    oled_write_raw_P(media_logo, sizeof(media_logo));
-}
+  oled_write_raw_P(media_logo, sizeof(media_logo));
+};
 
 static void render_wow_logo(void) {
-    static const char PROGMEM wow_logo[] = {
+  static const char PROGMEM wow_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x80, 0x40,
     0x20, 0xE0, 0x00, 0x80, 0x60, 0x20,
@@ -1289,13 +1299,13 @@ static void render_wow_logo(void) {
     0x19, 0x28, 0x04, 0x00, 0x00, 0x00,
     0x00, 0x10, 0x30, 0x5F, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00, 0x00
     };
-    oled_write_raw_P(wow_logo, sizeof(wow_logo));
-}
+  oled_write_raw_P(wow_logo, sizeof(wow_logo));
+};
 
 static void render_akira_logo(void) {
-    static const char PROGMEM akira_logo[] = {
+  static const char PROGMEM akira_logo[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x80, 0xC0, 0x00, 0xEC, 0xF6, 0x00,
@@ -1381,26 +1391,26 @@ static void render_akira_logo(void) {
     0x01, 0x03, 0x00, 0x59, 0x1B, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+    0x00, 0x00, 0x00
     };
-    oled_write_raw_P(akira_logo, sizeof(akira_logo));
-}
+  oled_write_raw_P(akira_logo, sizeof(akira_logo));
+};
 
 // 5x3 Logos
 void render_quas_logo(void) {
     static const char PROGMEM font_logo[16] = {0x80, 0x81, 0x82, 0x83, 0x84, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0};
     oled_write_P(font_logo, false);
-}
+};
 
 void render_acr_logo(void) {
     static const char PROGMEM font_acr_logo[16] = {0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0};
     oled_write_P(font_acr_logo, false);
-}
+};
 
 void render_media_controls(void) {
     static const char PROGMEM font_media_controls_logo[6] = {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0};
     oled_write_P(font_media_controls_logo, false);
-}
+};
 
 // 5x1 Layer indicator
 void render_layer(void) {
@@ -1428,7 +1438,7 @@ void render_layer(void) {
         layer = 6;
     }
     oled_write_P(font_layer[layer], false);
-}
+};
 
 // 2x1 Audio, clicky and RGB status indicators
 void render_audio_status(void) {
@@ -1527,17 +1537,17 @@ void render_prompt(void) {
     bool blink = (timer_read() % 1000) < 500;
 
     if (layer_state_is(_BASE)) {
-        oled_write_ln_P(blink ? PSTR("> BS_") : PSTR("> BS "), false);
+        oled_write_ln_P(blink ? PSTR("> DN_") : PSTR("> DN "), false);
     } else if (layer_state_is(_MID)) {
-        oled_write_ln_P(blink ? PSTR("> MD_") : PSTR("> MD "), false);
-    } else if (layer_state_is(_RAISE)) {
-        oled_write_ln_P(blink ? PSTR("> SN_") : PSTR("> SN "), false);
+        oled_write_ln_P(blink ? PSTR("> UP_") : PSTR("> UP "), false);
+    } else if (layer_state_is(_ADJUST)) {
+        oled_write_ln_P(blink ? PSTR("> AJ_") : PSTR("> AJ "), false);
     } else if (layer_state_is(_GAME)) {
         oled_write_ln_P(blink ? PSTR("> GG_") : PSTR("> GG "), false);
     } else if (layer_state_is(_PHOTOSHOP)) {
         oled_write_ln_P(blink ? PSTR("> PS_") : PSTR("> PS "), false);
     } else if (layer_state_is(_INDESIGN)) {
-        oled_write_ln_P(blink ? PSTR("> IN_") : PSTR("> IN "), false);
+        oled_write_ln_P(blink ? PSTR("> PS_") : PSTR("> PS "), false);
     } else {
         oled_write_ln_P(blink ? PSTR("> _  ") : PSTR(">    "), false);
     }
@@ -1552,7 +1562,7 @@ void render_status_main(void) {
     oled_write_ln_P(PSTR(" "), false);
     render_keylock_status(host_keyboard_leds());
     render_acr_logo();
-}
+};
 
 void render_status_secondary(void) {
     render_layer();
@@ -1565,7 +1575,7 @@ void render_status_secondary(void) {
     oled_write_ln_P(PSTR(" "), false);
     render_keylock_status(host_keyboard_leds());
     render_acr_logo();
-}
+};
 
 void render_status_adjust(void) {
     render_layer();
@@ -1581,7 +1591,7 @@ void render_status_adjust(void) {
     #else
         render_mod_status();
     #endif
-}
+};
 
 void render_status_media(void) {
     render_layer();
@@ -1597,7 +1607,7 @@ void render_status_media(void) {
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
     render_quas_logo();
-}
+};
 
 void render_status_games(void) {
     render_layer();
@@ -1609,7 +1619,7 @@ void render_status_games(void) {
     oled_write_ln_P(PSTR("M I H"), false);
     oled_write_ln_P(PSTR("J N X"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-}
+};
 
 void render_status_pshop(void) {
     render_layer();
@@ -1621,7 +1631,7 @@ void render_status_pshop(void) {
     oled_write_ln_P(PSTR("_ _ _"), false);
     oled_write_ln_P(PSTR("_ _ _"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-}
+};
 
 void render_status_indesign(void) {
     render_layer();
@@ -1633,12 +1643,19 @@ void render_status_indesign(void) {
     oled_write_ln_P(PSTR("_ _ _"), false);
     oled_write_ln_P(PSTR("_ _ _"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-}
+};
 
 void oled_task_user(void) {
-    if (timer_elapsed32(oled_timer) > 45000) {
+    // sleep if it has been long enough since we last got a char
+    if (timer_elapsed32(oled_timer) > SLEEP_TIMEOUT) {
         oled_off();
-    } else if (timer_elapsed32(oled_timer) > 20000) {
+        return;
+    } else {
+        oled_on();
+    }
+
+    // show screensaver after a few seconds
+    if (timer_elapsed32(oled_timer) > SCREEN_TIMEOUT) {
         if (IS_LAYER_ON(_MID)) {
             render_dead_logo();
         } else if (IS_LAYER_ON(_RAISE)) {
@@ -1655,8 +1672,8 @@ void oled_task_user(void) {
             render_statement_logo();
             oled_scroll_left();
         }
+        return;
     } else {
-        // Host Keyboard Layer Status
         switch (get_highest_layer(layer_state)) {
             case _INDESIGN:
                 render_status_indesign();
@@ -1681,7 +1698,7 @@ void oled_task_user(void) {
                 break;
         }
         oled_scroll_off();
+        update_log();
     }
-    update_log();
 }
 #endif
