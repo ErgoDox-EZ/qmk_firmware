@@ -120,8 +120,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  _______    ,_______        ,_______        ,KC_CALCULATOR        ,_______    ,_______        ,KC_KP_1              ,KC_KP_2        ,KC_KP_3    ,KC_COMMA       ,KC_DOT           ,_______,
                                  _______    ,_______        ,_______        ,_______              ,_______    ,_______        ,XXXXXXX              ,KC_KP_0        ,_______    ,_______        ,_______          ,_______),
 
-  [_LT] = LAYOUT_planck_grid(    _______    ,DE_AT          ,_______        ,DE_EURO              ,_______    ,_______        ,_______              ,DE_UDIA        ,KC_UP      ,DE_ODIA        ,KC_PSCREEN       ,KC_DELETE,
-                                 _______    ,DE_ADIA        ,DE_SS          ,_______              ,_______    ,_______        ,_______              ,KC_LEFT        ,KC_DOWN    ,KC_RIGHT       ,_______          ,_______,
+  [_LT] = LAYOUT_planck_grid(    _______    ,DE_AT          ,_______        ,DE_EURO              ,KC_ASDN    ,KC_ASUP        ,_______              ,DE_UDIA        ,KC_UP      ,DE_ODIA        ,KC_PSCREEN       ,KC_DELETE,
+                                 _______    ,DE_ADIA        ,DE_SS          ,_______              ,KC_ASRP    ,KC_ASTG        ,_______              ,KC_LEFT        ,KC_DOWN    ,KC_RIGHT       ,_______          ,_______,
                                  _______    ,DE_PIPE        ,_______        ,_______              ,_______    ,_______        ,_______              ,KC_AUDIO_MUTE  ,_______    ,_______        ,_______          ,_______,
                                  _______    ,_______        ,_______        ,_______              ,_______    ,_______        ,XXXXXXX              ,_______        ,_______    ,_______        ,_______          ,_______),
 

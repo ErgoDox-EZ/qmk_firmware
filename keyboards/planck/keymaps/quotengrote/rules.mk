@@ -9,3 +9,6 @@ ORYX_ENABLE = yes
 
 #Tap Dance
 TAP_DANCE_ENABLE = yes
+
+
+AUTO_SHIFT_ENABLE = yes

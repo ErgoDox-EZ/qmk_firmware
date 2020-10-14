@@ -1,5 +1,10 @@
 #pragma once
 
+#define AUTO_SHIFT_MODIFIERS
+#define NO_AUTO_SHIFT_SPECIAL
+#define NO_AUTO_SHIFT_NUMERIC
+
+
 // aus /keyboards/planck/ez/config.h
 // Anzhalt Taps für TT um Layer zu "locken"
 #define TAPPING_TOGGLE 2
