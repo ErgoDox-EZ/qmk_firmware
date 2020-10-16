@@ -264,7 +264,7 @@ void matrix_print(void) {
 // Needed for proper wake/sleep
 
 void matrix_power_up(void) {
-    bool temp_lanunching = is_launching;
+    bool temp_launching = is_launching;
 
     // outputs
     setPinOutput(B10);
@@ -286,7 +286,7 @@ void matrix_power_up(void) {
     setPinInputLow(B0);
 
     mcp23018_init();
-    is_launching = temp_lanunching;
+    is_launching = temp_launching;
     if (!temp_launching) {
         ML_LED_1(false);
         ML_LED_2(false);
