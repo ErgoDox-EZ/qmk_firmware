@@ -296,11 +296,6 @@ void matrix_power_up(void) {
         ML_LED_6(false);
     }
 
-    memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing_right, 0, MATRIX_COLS * sizeof(matrix_row_t));
-
-
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
