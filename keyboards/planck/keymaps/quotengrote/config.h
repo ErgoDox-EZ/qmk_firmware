@@ -1,9 +1,9 @@
 #pragma once
 
-#define AUTO_SHIFT_MODIFIERS
+//AutoShift
 #define NO_AUTO_SHIFT_SPECIAL
 #define NO_AUTO_SHIFT_NUMERIC
-
+#define AUTO_SHIFT_TIMEOUT 175
 
 // aus /keyboards/planck/ez/config.h
 // Anzhalt Taps für TT um Layer zu "locken"
