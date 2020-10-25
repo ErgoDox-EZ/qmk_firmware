@@ -16,7 +16,10 @@
 
 #include QMK_KEYBOARD_H
 #if OLED_DRIVER_ENABLE
-    #include "oled.c"
+#ifdef SNAKE_ENABLE
+#include "snake.h"
+#endif
+#include "oled.c"
 #endif
 #define _BASE 0
 #define _MID 1
@@ -25,6 +28,7 @@
 #define _GAME 4
 #define _PHOTOSHOP 5
 #define _INDESIGN 6
+#define _SNAKE 7
 
 #define PC_UNDO LCTL(KC_Z)
 #define PC_REDO LCTL(KC_Y)
@@ -94,6 +98,7 @@ enum keycodes {
     ENABLE_INDES,
     ENABLE_INDES2,
     MC_QMK,
+    SNAKE,
 };
 
 // For Photoshop:
@@ -106,7 +111,7 @@ uint8_t size_increment = 5;
 //The below layers are intentionally empty in order to give a good starting point for how to configure multiple layers.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(/* Base */
-                KC_KP_1,    KC_KP_2,    KC_KP_3,    ENABLE_TABSWITCHER,
+                SNAKE,      KC_KP_2,    KC_KP_3,    ENABLE_TABSWITCHER,
                 KC_KP_4,    KC_KP_5,    KC_KP_6,    ENABLE_MEDIA,
                 KC_KP_7,    KC_KP_8,    KC_KP_9,    ENABLE_APPSWITCHER,
                 KC_LSFT,    KC_LCTRL,   KC_LALT
@@ -149,6 +154,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_INDESIGN] = LAYOUT(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,    ENABLE_INDES,
+                KC_TRNS,    KC_TRNS,    KC_TRNS,    ENABLE_INDES2,
+                KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
+                KC_TRNS,    KC_TRNS,    KC_TRNS
+                ),
+
+    [_SNAKE] = LAYOUT(
+                KC_LEFT,    KC_RIGHT,   KC_TRNS,    ENABLE_INDES,
                 KC_TRNS,    KC_TRNS,    KC_TRNS,    ENABLE_INDES2,
                 KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,
                 KC_TRNS,    KC_TRNS,    KC_TRNS
@@ -244,6 +256,12 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 
+void matrix_init_user(void) {
+    #ifdef SNAKE_ENABLE
+      snake_first_time = false;
+    #endif
+}
+
 // For Resetting Layer State:
 layer_state_t selected_layer = 0;
 
@@ -291,7 +309,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_TABSWITCHER:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -313,7 +330,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_MEDIA:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -330,7 +346,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_ADJUST:
     if (record->event.pressed) {
       adjust_enabled = true;
@@ -340,7 +355,6 @@ switch (keycode) {
       encoder_enabled = false;
     }
     return false;
-    break;
   case ENABLE_GAME:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -359,7 +373,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_GAME2:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -379,7 +392,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_PSHOP:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -396,7 +408,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_PSHOP2:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -413,7 +424,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_INDES:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -430,7 +440,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case ENABLE_INDES2:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -445,7 +454,6 @@ switch (keycode) {
       }
     }
     return false;
-    break;
   case MC_QMK:
     if(record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -461,7 +469,25 @@ switch (keycode) {
         return true;
       }
     }
-    break;
+    return false;
+  case SNAKE:
+    #ifdef SNAKE_ENABLE
+      if (record->event.pressed) {
+        // snake_init();
+        snake_first_time = true;
+        layer_on(_SNAKE);
+      }
+    #endif
+    return false;
+  #ifdef SNAKE_ENABLE
+  if (IS_LAYER_ON(_SNAKE)) {
+    snake_key = keycode;
+    if (record->event.pressed)
+    {
+      snake_new_key = true;
+    }
+  }
+  #endif
   }
   if (record->event.pressed) {
     #ifdef OLED_DRIVER_ENABLE
@@ -470,6 +496,14 @@ switch (keycode) {
     #endif
   }
   return true;
+}
+
+void matrix_render_user(struct CharacterMatrix *matrix) {
+    if (IS_LAYER_ON(_SNAKE)) {
+      #ifdef SNAKE_ENABLE
+      snake_frame(matrix);
+      #endif
+    }
 }
 
 void encoder_update_user(uint8_t index, bool clockwise) {

@@ -517,26 +517,26 @@ void cmd_finished (qk_tap_dance_state_t *state, void *user_data) {
   tap_dance_state.state = hold_cur_dance(state);
   switch (tap_dance_state.state) {
     case SINGLE_TAP:
-      tap_code16(LGUI(KC_R));
-      tap_code16(KC_LGUI);
-      SEND_STRING ("dl-single");
-      register_code(KC_ENT);
+        tap_code16(LGUI(KC_R));
+        wait_ms(500);
+        SEND_STRING ("dl-single");
+        register_code(KC_ENT);
       break;
     case DOUBLE_TAP:
         tap_code16(LGUI(KC_R));
-      tap_code16(KC_LGUI);
+        wait_ms(500);
         SEND_STRING ("dl-music");
         register_code(KC_ENT);
       break;
     case TRIPLE_TAP:
         tap_code16(LGUI(KC_R));
-      tap_code16(KC_LGUI);
+        wait_ms(500);
         SEND_STRING ("dl-channel");
         register_code(KC_ENT);
       break;
     case TRIPLE_HOLD:
         tap_code16(LGUI(KC_R));
-      tap_code16(KC_LGUI);
+        wait_ms(500);
         SEND_STRING ("dl-playlist");
         register_code(KC_ENT);
       break;
@@ -729,7 +729,7 @@ switch (keycode) {
         tap_code(KC_ENT);
         return false;
       } else {
-        SEND_STRING ("make planck/ez:highrup"); // Change the character(s) to be sent on hold here
+        SEND_STRING ("make planck/ez/glow:highrup"); // Change the character(s) to be sent on hold here
         tap_code(KC_ENT);
         return true;
       }
@@ -738,6 +738,7 @@ switch (keycode) {
   case MC_SRCH:
     if(record->event.pressed) {
       tap_code16(LGUI(KC_R));
+      wait_ms(500);
       SEND_STRING ("http://www.google.com"); // Change the character(s) to be sent on tap here
       tap_code(KC_ENT);
     }
@@ -745,6 +746,7 @@ switch (keycode) {
   case MC_TUBE:
     if(record->event.pressed) {
       tap_code16(LGUI(KC_R));
+      wait_ms(500);
       SEND_STRING ("http://www.youtube.com"); // Change the character(s) to be sent on hold here
       tap_code(KC_ENT);
     }

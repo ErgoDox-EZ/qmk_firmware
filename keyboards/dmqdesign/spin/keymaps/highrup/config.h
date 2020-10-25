@@ -42,6 +42,8 @@
 
 #define DRIVER_LED_TOTAL 3
 
+#define SNAKE_ENABLE 1
+
 #ifndef NO_DEBUG
 #define NO_DEBUG
 #endif // !NO_DEBUG

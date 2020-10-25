@@ -5,6 +5,7 @@
 #define _GAME 4
 #define _PHOTOSHOP 5
 #define _INDESIGN 6
+#define _SNAKE 7
 
 #ifdef RGBLIGHT_ENABLE
     extern rgblight_config_t rgblight_config;
@@ -99,14 +100,14 @@ void update_log(void) {
     if (timer_elapsed(log_timer) > 750) {
         add_keylog(0);
     }
-};
+}
 
 // keylogger
 void render_keylogger_status(void) {
     oled_write_P(PSTR("klggr"), false);
     oled_write(keylog_str, false);
     oled_write_ln_P(PSTR(" "), false);
-};
+}
 
 // caps/num lock
 void render_keylock_status(uint8_t led_usb_state) {
@@ -115,7 +116,7 @@ void render_keylock_status(uint8_t led_usb_state) {
     oled_write_ln_P(PSTR("numl"), led_usb_state & (1 << USB_LED_NUM_LOCK));
     //oled_write_ln_P(PSTR("SCRL"), led_usb_state & (1 << USB_LED_SCROLL_LOCK));
     oled_write_ln_P(PSTR(" "), false);
-};
+}
 
 // mod identifier text
 void render_mod_status_text(uint8_t modifiers) {
@@ -124,12 +125,12 @@ void render_mod_status_text(uint8_t modifiers) {
     oled_write_ln_P(PSTR("ctrl"), (modifiers & MOD_MASK_CTRL));
     oled_write_ln_P(PSTR("alt"), (modifiers & MOD_MASK_ALT));
     //oled_write_ln_P(PSTR("WIN"), (modifiers & MOD_MASK_GUI));
-};
+}
 
 // oled OLED_ROTATION_270
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;
-};
+}
 
 static void render_statement_logo(void) {
   static const char PROGMEM statement_logo[] = {
@@ -221,7 +222,7 @@ static void render_statement_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(statement_logo, sizeof(statement_logo));
-};
+}
 
 static void render_acrnym_logo(void) {
   static const char PROGMEM acrnym_logo[] = {
@@ -313,7 +314,7 @@ static void render_acrnym_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(acrnym_logo, sizeof(acrnym_logo));
-};
+}
 
 static void render_dead_logo(void) {
   static const char PROGMEM dead_logo[] = {
@@ -405,7 +406,7 @@ static void render_dead_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(dead_logo, sizeof(dead_logo));
-};
+}
 
 static void render_media_logo(void) {
   static const char PROGMEM media_logo[] = {
@@ -497,7 +498,7 @@ static void render_media_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(media_logo, sizeof(media_logo));
-};
+}
 
 static void render_wow_logo(void) {
   static const char PROGMEM wow_logo[] = {
@@ -507,8 +508,8 @@ static void render_wow_logo(void) {
     0x20, 0x40, 0x80, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0xDC, 0x37,
-    0x14, 0x9C, 0x5C, 0x17, 0x35, 0x2C,
+    0x00, 0x00, 0x00, 0x00, 0xDC, 0x3F,
+    0x1C, 0x9C, 0x5C, 0x17, 0x35, 0x2C,
     0x38, 0x3C, 0x2A, 0x28, 0xDF, 0x38,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
@@ -524,26 +525,26 @@ static void render_wow_logo(void) {
     0x9F, 0xC7, 0x8D, 0x3D, 0x7B, 0x3F,
     0x00, 0x00, 0xFE, 0x78, 0x9C, 0xCE,
     0xE7, 0xFF, 0xFF, 0x3C, 0x18, 0x7E,
-    0xFF, 0xFF, 0xFE, 0xFC, 0xF0, 0xF8,
+    0xBF, 0xFF, 0xFE, 0xFC, 0xF0, 0xF8,
     0xFE, 0xFF, 0xFF, 0xFF, 0xFF, 0xFE,
     0xDC, 0x3F, 0xFF, 0xFD, 0xB3, 0x07,
     0x1E, 0xBF, 0x00, 0x00, 0xFF, 0xFF,
     0xFF, 0xFF, 0xFF, 0xEF, 0xF1, 0x78,
-    0xFE, 0xFF, 0xFF, 0x7F, 0x3F, 0xFF,
-    0xFF, 0x7F, 0xFF, 0xFF, 0x7F, 0x3F,
-    0xEF, 0x03, 0x9F, 0xFE, 0xFC, 0xFB,
+    0xFE, 0xFF, 0xFF, 0x7F, 0x3F, 0xDF,
+    0xFF, 0x7F, 0xFF, 0xEF, 0x1F, 0x3F,
+    0x7D, 0xF3, 0xFF, 0xCE, 0x9C, 0xFB,
     0xFF, 0xFE, 0xFC, 0xF9, 0x00, 0x00,
-    0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x81,
+    0x9F, 0xCF, 0xF7, 0xFF, 0xFF, 0x81,
     0xC0, 0x03, 0x0F, 0x1F, 0x08, 0x00,
     0x00, 0x81, 0xC0, 0xC0, 0xC0, 0x81,
-    0x00, 0x00, 0x00, 0x1E, 0x0F, 0x06,
-    0xC1, 0x83, 0xFF, 0xFF, 0xFF, 0x7F,
-    0x00, 0x00, 0xFF, 0xFF, 0xFF, 0xFF,
+    0x00, 0x00, 0x0C, 0x1F, 0x0F, 0x06,
+    0xC1, 0x83, 0xFF, 0xFF, 0x7F, 0xFF,
+    0x00, 0x00, 0xFE, 0xFF, 0xFF, 0xFF,
     0xF3, 0xE1, 0xC0, 0x00, 0x00, 0x00,
     0x3C, 0xFE, 0xFF, 0xE7, 0x83, 0x01,
     0xC3, 0xE7, 0xFF, 0x7E, 0x1C, 0x00,
     0x00, 0x00, 0xC0, 0xF1, 0xFB, 0xFF,
-    0xFE, 0xFF, 0x00, 0x00, 0x3F, 0xDF,
+    0xFE, 0xFA, 0x00, 0x00, 0x3F, 0xDF,
     0xFF, 0xFF, 0xF8, 0xF1, 0xE3, 0xC0,
     0xC0, 0xD8, 0xF8, 0xE0, 0x03, 0x07,
     0xFF, 0xFF, 0xFF, 0x03, 0x01, 0xF0,
@@ -559,17 +560,17 @@ static void render_wow_logo(void) {
     0xFF, 0xFF, 0xFF, 0xFC, 0xFF, 0xFF,
     0xFF, 0xFE, 0xFF, 0xFF, 0xFF, 0xFF,
     0xFE, 0xF0, 0xFD, 0xFF, 0xFF, 0x7F,
-    0xFE, 0xF1, 0x00, 0x00, 0x6F, 0x1F,
+    0xFE, 0xF1, 0x00, 0x00, 0xEF, 0x1F,
     0xFF, 0xFF, 0xFF, 0x1F, 0x0B, 0x01,
-    0x1F, 0xFF, 0x7F, 0x1F, 0xEF, 0xFF,
-    0x7F, 0x0F, 0x07, 0x07, 0x07, 0xFF,
-    0xFF, 0x7F, 0xBF, 0xFF, 0x74, 0x01,
-    0x03, 0x0F, 0xFE, 0xF9, 0x00, 0x00,
+    0x1E, 0xFF, 0x7F, 0x1F, 0xEF, 0xFF,
+    0xFF, 0x3F, 0x05, 0x07, 0xDF, 0xFF,
+    0xFF, 0x7F, 0xBF, 0xFF, 0xF7, 0x6F,
+    0x1F, 0x3F, 0xFE, 0xF9, 0x00, 0x00,
     0x00, 0x08, 0x07, 0x03, 0x01, 0x00,
-    0x00, 0x00, 0x01, 0xFC, 0x10, 0x0F,
-    0x87, 0xE3, 0x00, 0x00, 0x0E, 0x01,
-    0x00, 0xF0, 0x1B, 0x00, 0x07, 0x0C,
-    0x18, 0x00, 0x00, 0x03, 0x0F, 0x17,
+    0x00, 0x00, 0x01, 0xFE, 0x10, 0x0C,
+    0x87, 0xE3, 0x00, 0x00, 0x32, 0x09,
+    0x01, 0xE0, 0x3F, 0x00, 0x03, 0x07,
+    0x0C, 0x00, 0x00, 0x03, 0x0F, 0x17,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0xC7,
     0x28, 0x30, 0x11, 0x20, 0x00, 0x00,
@@ -589,7 +590,7 @@ static void render_wow_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(wow_logo, sizeof(wow_logo));
-};
+}
 
 static void render_akira_logo(void) {
   static const char PROGMEM akira_logo[] = {
@@ -681,23 +682,23 @@ static void render_akira_logo(void) {
     0x00, 0x00
     };
   oled_write_raw_P(akira_logo, sizeof(akira_logo));
-};
+}
 
 // 5x3 Logos
 void render_quas_logo(void) {
     static const char PROGMEM font_logo[16] = {0x80, 0x81, 0x82, 0x83, 0x84, 0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0};
     oled_write_P(font_logo, false);
-};
+}
 
 void render_acr_logo(void) {
     static const char PROGMEM font_acr_logo[16] = {0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0};
     oled_write_P(font_acr_logo, false);
-};
+}
 
 void render_media_controls(void) {
     static const char PROGMEM font_media_controls_logo[6] = {0x9a, 0x9b, 0x9c, 0x9d, 0x9e, 0};
     oled_write_P(font_media_controls_logo, false);
-};
+}
 
 // 5x1 Layer indicator
 void render_layer(void) {
@@ -725,20 +726,20 @@ void render_layer(void) {
         layer = 6;
     }
     oled_write_P(font_layer[layer], false);
-};
+}
 
 // 2x1 Audio, clicky and RGB status indicators
 void render_audio_status(void) {
     static const char PROGMEM font_audio_on[3] = {0x8f, 0x90, 0};
     static const char PROGMEM font_audio_off[3]  = {0x91, 0x92, 0};
     oled_write_P(mute_enabled ? font_audio_on : font_audio_off, false);
-};
+}
 
 void render_clicky_status(void) {
     static const char PROGMEM font_clicky_off[3] = {0xaf, 0xb0, 0};
     static const char PROGMEM font_clicky_on[3]  = {0xb1, 0xb2, 0};
     oled_write_P(encoder_enabled ? font_clicky_on : font_clicky_off, false);
-};
+}
 
 #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
 void render_rgb_status(void) {
@@ -750,7 +751,7 @@ void render_rgb_status(void) {
     bool rgb_enabled = rgb_matrix_config.enable;
 #endif
     oled_write_P(rgb_enabled ? font_rgb_on : font_rgb_off, false);
-};
+}
 #endif
 
 void render_feature_status(void) {
@@ -759,34 +760,34 @@ void render_feature_status(void) {
     #if defined(RGB_MATRIX_ENABLE) || defined(RGBLIGHT_ENABLE)
         render_rgb_status();
     #endif
-};
+}
 
 // 2x1 Ctrl, Alt, Shift, GUI, Mouse
 void render_mod_ctrl(void) {
     static const char PROGMEM font_ctrl[3] = {0x93, 0x94, 0};
     oled_write_P(font_ctrl, false);
-};
+}
 
 void render_mod_alt(void) {
     static const char PROGMEM font_alt[3] = {0x95, 0x96, 0};
     oled_write_P(font_alt, false);
-};
+}
 
 void render_mod_shift(void) {
     static const char PROGMEM font_shift[3] = {0xd3, 0xd4, 0};
     oled_write_P(font_shift, false);
-};
+}
 
 void render_mod_gui(void) {
     static const char PROGMEM font_gui[3] = {0xb3, 0xb4, 0};
     oled_write_P(font_gui, false);
-};
+}
 
 #ifdef MOUSEKEY_ENABLE
 void render_mod_mouse(void) {
     static const char PROGMEM font_mouse[3] = {0x97, 0x98, 0};
     oled_write_P(font_mouse, false);
-};
+}
 #endif
 
 // 5x2 Mod and feature indicator clusters
@@ -818,7 +819,7 @@ void render_mod_status(void) {
     oled_write_ln_P(PSTR(" "), false);
     oled_write_P(PSTR("_____"), false);
 #endif
-};
+}
 
 // title rendering
 void render_prompt(void) {
@@ -839,7 +840,7 @@ void render_prompt(void) {
     } else {
         oled_write_ln_P(blink ? PSTR("> _  ") : PSTR(">    "), false);
     }
-};
+}
 
 void render_status_main(void) {
     render_layer();
@@ -850,7 +851,7 @@ void render_status_main(void) {
     oled_write_ln_P(PSTR(" "), false);
     render_keylock_status(host_keyboard_leds());
     render_acr_logo();
-};
+}
 
 void render_status_secondary(void) {
     render_layer();
@@ -863,7 +864,7 @@ void render_status_secondary(void) {
     oled_write_ln_P(PSTR(" "), false);
     render_keylock_status(host_keyboard_leds());
     render_acr_logo();
-};
+}
 
 void render_status_adjust(void) {
     render_layer();
@@ -879,7 +880,7 @@ void render_status_adjust(void) {
     #else
         render_mod_status();
     #endif
-};
+}
 
 void render_status_media(void) {
     render_layer();
@@ -895,7 +896,7 @@ void render_status_media(void) {
     oled_write_ln_P(PSTR(" "), false);
     oled_write_ln_P(PSTR(" "), false);
     render_quas_logo();
-};
+}
 
 void render_status_games(void) {
     render_layer();
@@ -907,7 +908,7 @@ void render_status_games(void) {
     oled_write_ln_P(PSTR("m i h"), false);
     oled_write_ln_P(PSTR("j n x"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-};
+}
 
 void render_status_pshop(void) {
     render_layer();
@@ -919,7 +920,7 @@ void render_status_pshop(void) {
     oled_write_ln_P(PSTR("_ _ _"), false);
     oled_write_ln_P(PSTR("_ _ _"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-};
+}
 
 void render_status_indesign(void) {
     render_layer();
@@ -931,7 +932,7 @@ void render_status_indesign(void) {
     oled_write_ln_P(PSTR("_ _ _"), false);
     oled_write_ln_P(PSTR("_ _ _"), false);
     render_mod_status_text(get_mods()|get_oneshot_mods());
-};
+}
 
 void oled_task_user(void) {
     // sleep if it has been long enough since we last got a char
@@ -971,6 +972,8 @@ void oled_task_user(void) {
         return;
     } else {
         switch (get_highest_layer(layer_state)) {
+            case _SNAKE:
+                break;
             case _INDESIGN:
                 render_status_indesign();
                 break;
