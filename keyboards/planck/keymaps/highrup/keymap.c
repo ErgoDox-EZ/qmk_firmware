@@ -580,7 +580,7 @@ switch (keycode) {
     if (record->event.pressed) {
       rgblight_mode(1);
     }
-    break;
+    return false;
   case ENABLE_APPSWITCHER:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -598,7 +598,7 @@ switch (keycode) {
       unregister_code16(KC_LALT);
       }
     }
-    break;
+    return false;
   case ENABLE_TABSWITCHER:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -616,7 +616,7 @@ switch (keycode) {
       unregister_code16(KC_LCTL);
       }
     }
-    break;
+    return false;
   case ENABLE_MUSIC:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -629,14 +629,14 @@ switch (keycode) {
       music_enabled = false;
       }
     }
-    break;
+    return false;
   case ENABLE_MOUSE:
     if (record->event.pressed) {
       mouse_enabled = true;
     } else {
         mouse_enabled = false;
     }
-    break;
+    return false;
   case ENABLE_PSHOP:
     if (record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -649,7 +649,7 @@ switch (keycode) {
         pshop_enabled = false;
       }
     }
-    break;
+    return false;
   case PC_ALL:
     if(record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -663,7 +663,7 @@ switch (keycode) {
         return true;
       }
     }
-    break;
+    return false;
   case PC_SAVE:
     if(record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -677,7 +677,7 @@ switch (keycode) {
         return true;
       }
     }
-    break;
+    return false;
   case MC_DELETE:
     if (record->event.pressed) {
       saved_mods = get_mods() & MOD_MASK_SHIFT;
@@ -695,7 +695,7 @@ switch (keycode) {
       unregister_code(KC_DEL);
       unregister_code(KC_BSPC);
     }
-    break;
+    return false;
   case MC_BLANK:
     if(record->event.pressed) {
       register_mods(MOD_BIT(KC_LALT));
@@ -704,7 +704,7 @@ switch (keycode) {
       tap_code(KC_P5);
       unregister_mods(MOD_BIT(KC_LALT));
     }
-    break;
+    return false;
   case MC_TAB:
     if(record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -718,7 +718,7 @@ switch (keycode) {
         return true;
       }
     }
-    break;
+    return false;
   case MC_QMK:
     if(record->event.pressed) {
       key_timer = timer_read();  // start the timer
@@ -734,7 +734,7 @@ switch (keycode) {
         return true;
       }
     }
-    break;
+    return false;
   case MC_SRCH:
     if(record->event.pressed) {
       tap_code16(LGUI(KC_R));
@@ -742,7 +742,7 @@ switch (keycode) {
       SEND_STRING ("http://www.google.com"); // Change the character(s) to be sent on tap here
       tap_code(KC_ENT);
     }
-    break;
+    return false;
   case MC_TUBE:
     if(record->event.pressed) {
       tap_code16(LGUI(KC_R));
@@ -750,13 +750,13 @@ switch (keycode) {
       SEND_STRING ("http://www.youtube.com"); // Change the character(s) to be sent on hold here
       tap_code(KC_ENT);
     }
-    break;
+    return false;
   case AI_SWEB:
     if(record->event.pressed) {
       // Save for Web Macro.
       SEND_STRING(SS_LSFT(SS_LALT(SS_LCTRL("s"))));
     }
-    break;
+    return false;
   }
   return true;
 }

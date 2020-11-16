@@ -41,3 +41,4 @@ SWAP_HANDS_ENABLE= no  # Allow swapping hands of keyboard
 LTO_ENABLE = no
 
 EXTRAFLAGS += -flto
+

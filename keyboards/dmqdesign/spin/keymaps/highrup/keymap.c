@@ -111,9 +111,9 @@ uint8_t size_increment = 5;
 //The below layers are intentionally empty in order to give a good starting point for how to configure multiple layers.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(/* Base */
-                SNAKE,      KC_KP_2,    KC_KP_3,    ENABLE_TABSWITCHER,
-                KC_KP_4,    KC_KP_5,    KC_KP_6,    ENABLE_MEDIA,
-                KC_KP_7,    KC_KP_8,    KC_KP_9,    ENABLE_APPSWITCHER,
+                KC_1,       KC_2,       KC_3,    ENABLE_TABSWITCHER,
+                KC_4,       KC_5,       KC_6,    ENABLE_MEDIA,
+                KC_7,       KC_8,       KC_9,    ENABLE_APPSWITCHER,
                 KC_LSFT,    KC_LCTRL,   KC_LALT
                 ),
 
