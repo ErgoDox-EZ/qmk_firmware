@@ -128,7 +128,20 @@ void moonlander_led_task(void) {
         wait_ms(150);
     }
 #endif
-
+#ifdef CAPS_LOCK_STATUS
+    else {
+        led_t led_state = host_keyboard_led_state();
+        if(led_state.caps_lock) {
+            ML_LED_1(true);
+        }
+        else {
+            uint8_t layer = get_highest_layer(layer_state);
+            if(layer != 1) {
+                ML_LED_1(false);
+            }
+        }
+    }
+#endif
 }
 
 static THD_WORKING_AREA(waLEDThread, 128);
@@ -361,7 +374,7 @@ bool music_mask_kb(uint16_t keycode) {
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_MOD_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
         case AU_ON ... MUV_DE:
-        case RESET:
+        case RESET:Caps lock state
         case EEP_RST:
             return false;
         default:
