@@ -132,12 +132,12 @@ void moonlander_led_task(void) {
     else {
         led_t led_state = host_keyboard_led_state();
         if(led_state.caps_lock) {
-            ML_LED_1(true);
+            ML_LED_6(true);
         }
         else {
             uint8_t layer = get_highest_layer(layer_state);
             if(layer != 1) {
-                ML_LED_1(false);
+                ML_LED_6(false);
             }
         }
     }
