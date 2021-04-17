@@ -136,7 +136,13 @@ void moonlander_led_task(void) {
         }
         else {
             uint8_t layer = get_highest_layer(layer_state);
-            if(layer != 1) {
+            bool layer_indicator_is_priority = true;
+            if(layer == 3 || layer == 6) {
+            #ifdef PRIORITY_CAPS_LED
+                layer_indicator_is_priority = false;
+            #endif
+                ML_LED_6(layer_indicator_is_priority);
+            } else {
                 ML_LED_6(false);
             }
         }
@@ -198,7 +204,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             break;
         case 3:
             ML_LED_3(1);
+        #ifndef PRIORITY_CAPS_LED
             ML_LED_6(1);
+        #endif
             break;
         case 4:
             ML_LED_4(1);
@@ -207,7 +215,9 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
             ML_LED_5(1);
             break;
         case 6:
+        #ifndef PRIORITY_CAPS_LED
             ML_LED_6(1);
+        #endif
             break;
         default:
             break;
