@@ -19,6 +19,7 @@
 
 
 #include "moonlander.h"
+#include "cirque_tm040040.h"
 #ifdef WEBUSB_ENABLE
 #    include "webusb.h"
 #endif
@@ -473,6 +474,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
 #endif
+        case DPI_CONFIG:
+            if (record->event.pressed) {
+                keyboard_config.dpi_config++;
+                if (!keyboard_config.dpi_config) keyboard_config.dpi_config = 1;
+                eeconfig_update_kb(keyboard_config.raw);
+            }
+            break;
     }
     return process_record_user(keycode, record);
 }
@@ -485,6 +493,11 @@ void matrix_init_kb(void) {
         keyboard_config.led_level_res = 0b11;
         eeconfig_update_kb(keyboard_config.raw);
     }
+    if (!keyboard_config.dpi_config) {
+        keyboard_config.dpi_config = 2;
+        eeconfig_update_kb(keyboard_config.raw);
+    }
+
 #ifdef RGB_MATRIX_ENABLE
     if (keyboard_config.rgb_matrix_enable) {
         rgb_matrix_set_flags(LED_FLAG_ALL);
@@ -499,6 +512,7 @@ void eeconfig_init_kb(void) {  // EEPROM is getting reset!
     keyboard_config.rgb_matrix_enable = true;
     keyboard_config.led_level = true;
     keyboard_config.led_level_res = 0b11;
+    keyboard_config.dpi_config = 2;
     eeconfig_update_kb(keyboard_config.raw);
     eeconfig_init_user();
 }

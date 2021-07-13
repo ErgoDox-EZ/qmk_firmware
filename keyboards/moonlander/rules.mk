@@ -30,5 +30,9 @@ EEPROM_DRIVER = i2c
 MOUSE_SHARED_EP = no
 
 #project specific files
-SRC += matrix.c
-QUANTUM_LIB_SRC += i2c_master.c
+SRC = matrix.c cirque_tm040040.c
+QUANTUM_LIB_SRC += i2c_master.c i2c2_master.c
+
+MOUSE_SHARED_EP = no
+
+POINTING_DEVICE_ENABLE = yes

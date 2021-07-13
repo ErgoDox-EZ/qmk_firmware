@@ -63,16 +63,18 @@ extern bool mcp23018_leds[];
 enum planck_ez_keycodes {
     TOGGLE_LAYER_COLOR = SAFE_RANGE,
     LED_LEVEL,
+    DPI_CONFIG,
     ML_SAFE_RANGE,
 };
 
 typedef union {
   uint32_t raw;
   struct {
-    bool         disable_layer_led   :1;
-    bool         rgb_matrix_enable   :1;
-    bool         led_level           :1;
-    uint8_t      led_level_res       :2; // DO NOT REMOVE
+      bool    disable_layer_led :1;
+      bool    rgb_matrix_enable :1;
+      bool    led_level         :1;
+      uint8_t led_level_res     :2; // DO NOT REMOVE
+      uint8_t dpi_config        :3;
   };
 } keyboard_config_t;
 
